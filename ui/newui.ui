@@ -1,0 +1,1323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>854</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>700</width>
+    <height>400</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>1200</width>
+    <height>1000</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="layoutDirection">
+   <enum>Qt::LayoutDirection::LeftToRight</enum>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+QMainWindow {
+    background-color: #1ED761; /* Đây là màu xám đen hiện đại */
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="enabled">
+    <bool>true</bool>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>700</width>
+     <height>400</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>1200</width>
+     <height>1000</height>
+    </size>
+   </property>
+   <property name="cursor">
+    <cursorShape>WaitCursor</cursorShape>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::FocusPolicy::TabFocus</enum>
+   </property>
+   <property name="contextMenuPolicy">
+    <enum>Qt::ContextMenuPolicy::PreventContextMenu</enum>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LayoutDirection::LeftToRight</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">#centralwidget{
+    background-color: black/* Đây là màu xám đen hiện đại */
+
+}</string>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <item alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignVCenter">
+     <widget class="QWidget" name="widget_3" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>650</width>
+        <height>400</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>650</width>
+        <height>600</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#widget_3{
+		
+	background-color: transparent;
+}</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignBottom">
+        <widget class="QWidget" name="widget" native="true">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>600</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>600</width>
+           <height>300</height>
+          </size>
+         </property>
+         <property name="sizeIncrement">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#widget{
+
+	border-radius: 25px;
+	background: #2b2b2b;
+}</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop">
+           <widget class="QLabel" name="labelEnterLink">
+            <property name="minimumSize">
+             <size>
+              <width>140</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>140</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>Segoe UI</family>
+              <pointsize>18</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#labelEnterLink{
+	/* TÙY CHỈNH FONT CHỮ */
+    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
+    font-size: 18pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
+    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
+	color:white;
+}</string>
+            </property>
+            <property name="text">
+             <string>Enter link</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignmentFlag::AlignCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_9" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>600</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>600</width>
+              <height>150</height>
+             </size>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_7">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>25</number>
+             </property>
+             <item alignment="Qt::AlignmentFlag::AlignTop">
+              <widget class="QWidget" name="widget_6" native="true">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>470</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>470</width>
+                 <height>150</height>
+                </size>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <property name="spacing">
+                 <number>0</number>
+                </property>
+                <property name="leftMargin">
+                 <number>5</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>5</number>
+                </property>
+                <item>
+                 <widget class="QWidget" name="enterWidget" native="true">
+                  <property name="minimumSize">
+                   <size>
+                    <width>450</width>
+                    <height>50</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>450</width>
+                    <height>50</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">#enterWidget {
+    /* Quan trọng: Phải có border thì radius mới hoạt động chuẩn */
+    border: 2px solid transparent; 
+    border-radius: 25px; /* Chỉnh số này cho đến khi vừa ý */
+	background-color: black;
+    color: white;
+    padding: 5px 15px; /* Cho chữ cách lề ra một chút nhìn sẽ sang hơn */
+}
+
+#enterWidget:hover{
+    /* Quan trọng: Phải có border thì radius mới hoạt động chuẩn */
+    border: 2px solid transparent; 
+    border-radius: 25px; /* Chỉnh số này cho đến khi vừa ý */
+	background-color: rgb(52, 52, 52);
+    color: white;
+    padding: 5px 15px; /* Cho chữ cách lề ra một chút nhìn sẽ sang hơn */
+}
+
+#enterWidget:focus{
+    /* Quan trọng: Phải có border thì radius mới hoạt động chuẩn */
+    border: 2px solid transparent; 
+    border-radius: 20px; /* Chỉnh số này cho đến khi vừa ý */
+	background-color: rgb(29, 29, 29);
+    color: white;
+    padding: 5px 15px; /* Cho chữ cách lề ra một chút nhìn sẽ sang hơn */
+}
+</string>
+                  </property>
+                  <layout class="QHBoxLayout" name="horizontalLayout_4">
+                   <property name="leftMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="topMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="rightMargin">
+                    <number>0</number>
+                   </property>
+                   <property name="bottomMargin">
+                    <number>0</number>
+                   </property>
+                   <item>
+                    <widget class="QLineEdit" name="enterPlace">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>400</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                     <property name="maximumSize">
+                      <size>
+                       <width>400</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">#enterPlace {
+    /* Quan trọng: Phải có border thì radius mới hoạt động chuẩn */
+    border: 2px solid transparent; 
+    border-radius: 20px; /* Chỉnh số này cho đến khi vừa ý */
+	background-color: transparent;
+    color: white;
+    padding: 5px 15px; /* Cho chữ cách lề ra một chút nhìn sẽ sang hơn */
+}
+
+#enterPlace:focus{
+    /* Quan trọng: Phải có border thì radius mới hoạt động chuẩn */
+    border: 2px solid transparent; 
+    border-radius: 20px; /* Chỉnh số này cho đến khi vừa ý */
+	background-color: transparent;
+    color: white;
+    padding: 5px 15px; /* Cho chữ cách lề ra một chút nhìn sẽ sang hơn */
+}
+</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QPushButton" name="clearBtn">
+                     <property name="maximumSize">
+                      <size>
+                       <width>40</width>
+                       <height>40</height>
+                      </size>
+                     </property>
+                     <property name="styleSheet">
+                      <string notr="true">#clearBtn{
+	background-color: transparent;
+	border: 1px solid transparent;
+}</string>
+                     </property>
+                     <property name="text">
+                      <string/>
+                     </property>
+                    </widget>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QListWidget" name="listWidget">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>450</width>
+                    <height>0</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>450</width>
+                    <height>60</height>
+                   </size>
+                  </property>
+                  <property name="autoFillBackground">
+                   <bool>false</bool>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">#listWidget {
+                background-color:transparent; 
+                color: white;
+                border-radius: 10px; 
+                border: 1px solid transparent;
+                padding: 5px; 
+                outline: 0; /* Bỏ đường viền đứt nét khi được chọn */
+            }
+            
+            /* Cấu hình cho TỪNG DÒNG (item) bên trong list */
+            #listWidget::item { 
+                border-radius: 12px; /* Đặt độ bo góc bạn muốn ở đây */
+                margin: 2px 4px; /* Tạo khoảng trống xung quanh để thấy rõ góc bo */
+            }
+            
+            /* Hiệu ứng khi HOVER vào dòng */
+            #listWidget::item:hover { 
+                background-color: rgb(67, 67, 67); 
+            }
+            
+            /* Hiệu ứng khi CLICK (chọn) dòng */
+            #listWidget::item:selected {
+                background-color: rgb(80, 80, 80);
+                color: #1ED761;
+            }</string>
+                  </property>
+                  <property name="showDropIndicator" stdset="0">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignmentFlag::AlignTop">
+              <widget class="QPushButton" name="findBtn">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">#findBtn{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color: rgb(67, 67, 67);
+	color : white;
+	/* TÙY CHỈNH FONT CHỮ */
+    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
+    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
+    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
+}
+
+#findBtn:hover{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color: #1ED761;
+	color : black;
+	
+}
+
+</string>
+               </property>
+               <property name="text">
+                <string>Find</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignmentFlag::AlignHCenter">
+        <widget class="QWidget" name="widget_2" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>600</width>
+           <height>250</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>600</width>
+           <height>250</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#widget_2{
+	border: 2px solid transparent;
+	border-radius:25px;
+	background-color:#2b2b2b;
+}</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
+          <property name="bottomMargin">
+           <number>10</number>
+          </property>
+          <item alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignVCenter">
+           <widget class="QWidget" name="widget_4" native="true">
+            <property name="minimumSize">
+             <size>
+              <width>590</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>590</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#widget_4{
+	
+	background-color: transparent;
+}</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout">
+             <property name="leftMargin">
+              <number>0</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="linkName">
+               <property name="minimumSize">
+                <size>
+                 <width>450</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>450</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">#linkName {
+    /* Quan trọng: Phải có border thì radius mới hoạt động chuẩn */
+    border: 2px solid transparent; 
+    border-radius: 20px; /* Chỉnh số này cho đến khi vừa ý */
+	background-color: black;
+    color: white;
+    padding: 5px 15px; /* Cho chữ cách lề ra một chút nhìn sẽ sang hơn */
+}</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBoxDownloadOption">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>100</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="layoutDirection">
+                <enum>Qt::LayoutDirection::LeftToRight</enum>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">#comboBoxDownloadOption{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color: rgb(67, 67, 67);
+	color : white;
+	padding-left: 30px;
+	/* TÙY CHỈNH FONT CHỮ */
+    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
+    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
+    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
+}
+
+#comboBoxDownloadOption:hover{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color:#1ED761;
+	color : black;
+	
+}
+
+#comboBoxDownloadOption::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 25px;
+    border-top-right-radius: 10px; /* Bo góc cho phần nút bên phải */
+    border-bottom-right-radius: 10px;
+    
+}
+
+#comboBoxDownloadOption::down-arrow {
+	image: url(&quot;E:/design/ytb_playlist_downloader/img/icon/down_arrow.png&quot;);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+}
+
+#comboBoxDownloadOption:disabled{
+	
+	border: 2px solid;
+	border-color: rgb(136, 136, 136);
+	border-radius:20px;
+	background-color:rgb(67, 67, 67);
+	color :white;
+	
+}</string>
+               </property>
+               <item>
+                <property name="text">
+                 <string>MP3</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>MP4</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignVCenter">
+           <widget class="QWidget" name="linkContentWidget" native="true">
+            <property name="minimumSize">
+             <size>
+              <width>590</width>
+              <height>160</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>590</width>
+              <height>160</height>
+             </size>
+            </property>
+            <property name="styleSheet">
+             <string notr="true">#linkContentWidget{
+	border: 2px solid transparent; 
+    border-radius: 25px; /* Chỉnh số này cho đến khi vừa ý */
+	background-color: rgb(0, 0, 0);
+}</string>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <property name="spacing">
+              <number>0</number>
+             </property>
+             <property name="leftMargin">
+              <number>10</number>
+             </property>
+             <property name="topMargin">
+              <number>10</number>
+             </property>
+             <property name="rightMargin">
+              <number>10</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item alignment="Qt::AlignmentFlag::AlignTop">
+              <widget class="QLabel" name="videoImg">
+               <property name="minimumSize">
+                <size>
+                 <width>175</width>
+                 <height>125</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>200</width>
+                 <height>125</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">#videoImg{
+	border: 2px solid transparent; 
+    border-radius: 20px; /* Chỉnh số này cho đến khi vừa ý */
+}</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignmentFlag::AlignTop">
+              <widget class="QLabel" name="videoName">
+               <property name="minimumSize">
+                <size>
+                 <width>200</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>250</width>
+                 <height>100</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>16</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_8" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_5">
+                <item alignment="Qt::AlignmentFlag::AlignRight">
+                 <widget class="QPushButton" name="downloadBtn">
+                  <property name="minimumSize">
+                   <size>
+                    <width>100</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>100</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">#downloadBtn{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color: rgb(67, 67, 67);
+	color : white;
+	/* TÙY CHỈNH FONT CHỮ */
+    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
+    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
+    font-weight: bold;
+}
+
+#downloadBtn:hover{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color: #1ED761;
+	color : black;
+	
+}
+
+#downloadBtn:disabled{
+	
+	border: 2px solid;
+	border-color: rgb(136, 136, 136);
+	border-radius:20px;
+	background-color:rgb(67, 67, 67);
+	color : white;
+	
+}</string>
+                  </property>
+                  <property name="text">
+                   <string>DOWNLOAD</string>
+                  </property>
+                 </widget>
+                </item>
+                <item alignment="Qt::AlignmentFlag::AlignRight">
+                 <widget class="QComboBox" name="comboBoxDownloadQuality">
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="minimumSize">
+                   <size>
+                    <width>150</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="maximumSize">
+                   <size>
+                    <width>150</width>
+                    <height>40</height>
+                   </size>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">#comboBoxDownloadQuality{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color: rgb(67, 67, 67);
+	color : white;
+	padding-left: 30px;
+	/* TÙY CHỈNH FONT CHỮ */
+    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
+    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
+    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
+}
+
+#comboBoxDownloadQuality:hover{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color:#1ED761;
+	color : black;
+	
+}
+
+#comboBoxDownloadQuality::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 25px;
+    border-top-right-radius: 10px; /* Bo góc cho phần nút bên phải */
+    border-bottom-right-radius: 10px;
+    
+}
+
+#comboBoxDownloadQuality::down-arrow {
+	image: url(&quot;E:/design/ytb_playlist_downloader/img/icon/down_arrow.png&quot;);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+}
+
+#comboBoxDownloadQuality:disabled{
+	
+	border: 2px solid;
+	border-color: rgb(136, 136, 136);
+	border-radius:20px;
+	background-color:rgb(67, 67, 67);
+	color : transparent;
+	
+}</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <spacer name="horizontalSpacer">
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item alignment="Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTop">
+     <widget class="QWidget" name="sideBarWidget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>400</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>550</width>
+        <height>800</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">#sideBarWidget{
+	
+	background-color: #2b2b2b
+}</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <property name="bottomMargin">
+        <number>50</number>
+       </property>
+       <item alignment="Qt::AlignmentFlag::AlignTop">
+        <widget class="QWidget" name="widget_10" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>550</width>
+           <height>110</height>
+          </size>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_7">
+          <property name="spacing">
+           <number>0</number>
+          </property>
+          <property name="leftMargin">
+           <number>9</number>
+          </property>
+          <property name="topMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>9</number>
+          </property>
+          <property name="bottomMargin">
+           <number>0</number>
+          </property>
+          <item>
+           <widget class="QWidget" name="widget_5" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>50</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>550</width>
+              <height>50</height>
+             </size>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <property name="spacing">
+              <number>6</number>
+             </property>
+             <property name="leftMargin">
+              <number>9</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>9</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QPushButton" name="downloadAllBtn">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>200</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">#downloadAllBtn{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color: rgb(67, 67, 67);
+	color : white;
+	/* TÙY CHỈNH FONT CHỮ */
+    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
+    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
+    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
+}
+
+#downloadAllBtn:hover{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color: #1ED761;
+	color : black;
+	
+}
+
+</string>
+               </property>
+               <property name="text">
+                <string>Download ALL</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBoxDownloadAllOpt">
+               <property name="minimumSize">
+                <size>
+                 <width>100</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>200</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">#comboBoxDownloadAllOpt{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color: rgb(67, 67, 67);
+	color : white;
+	padding-left: 80px;
+	/* TÙY CHỈNH FONT CHỮ */
+    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
+    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
+    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
+}
+
+#comboBoxDownloadAllOpt:hover{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color:#1ED761;
+	color : black;
+	
+}
+
+#comboBoxDownloadAllOpt::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 25px;
+    border-top-right-radius: 10px; /* Bo góc cho phần nút bên phải */
+    border-bottom-right-radius: 10px;
+    
+}
+
+#comboBoxDownloadAllOpt::down-arrow {
+	image: url(&quot;E:/design/ytb_playlist_downloader/img/icon/down_arrow.png&quot;);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+}</string>
+               </property>
+               <item>
+                <property name="text">
+                 <string>MP3</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>MP4</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="miniSideBarBtn">
+               <property name="maximumSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">#miniSideBarBtn{
+	border: 1px lipid transparent;
+	
+	background-color: transparent;
+}</string>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_7" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <property name="leftMargin">
+              <number>20</number>
+             </property>
+             <property name="rightMargin">
+              <number>20</number>
+             </property>
+             <item>
+              <widget class="QProgressBar" name="progressBar">
+               <property name="minimumSize">
+                <size>
+                 <width>200</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>200</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="value">
+                <number>24</number>
+               </property>
+              </widget>
+             </item>
+             <item alignment="Qt::AlignmentFlag::AlignTop">
+              <widget class="QLabel" name="label_2">
+               <property name="minimumSize">
+                <size>
+                 <width>300</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>300</width>
+                 <height>50</height>
+                </size>
+               </property>
+               <property name="layoutDirection">
+                <enum>Qt::LayoutDirection::LeftToRight</enum>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop">
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>500</width>
+           <height>600</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">#scrollArea{
+	border:1px lipid black;
+}</string>
+         </property>
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>54</width>
+            <height>54</height>
+           </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Maximum" vsizetype="Maximum">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>0</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>500</width>
+            <height>600</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">#scrollAreaWidgetContents:vertical {
+    width: 0px;
+    background: transparent;
+}
+
+#scrollAreaWidgetContents:horizontal {
+    height: 0px;
+    background: transparent;
+}</string>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1200</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuAAA">
+    <property name="title">
+     <string>AAA</string>
+    </property>
+   </widget>
+   <addaction name="menuAAA"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
