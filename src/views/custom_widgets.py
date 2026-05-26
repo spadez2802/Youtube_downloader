@@ -5,7 +5,7 @@ from PySide6.QtGui import QPixmap
 
 # --- IMPORT VIEW (GIAO DIỆN) ---
 # Đảm bảo bạn đã di chuyển file ui_video_ver... vào trong thư mục views
-from views.ui_video_ver5_7 import Ui_miniCard as Ui_VideoMini 
+from views.ui_video_ver6_1 import Ui_miniCard as Ui_VideoMini 
 
 # --- IMPORT MODELS (LUỒNG XỬ LÝ) ---
 from models.thread_thumbnail import ThumbnailThread
@@ -23,30 +23,30 @@ class VideoItemWidget(QWidget):
         self.url = url
         self.title = title 
         
+        # --- FIX KÍCH THƯỚC THUMBNAIL TO VÀ CỐ ĐỊNH ---
+        self.ui.labelImg.setFixedSize(150, 100)
+
         display_title = title if len(title) < 40 else title[:37] + "..."
         self.ui.labelName.setText(display_title)
         self.ui.labelName.setWordWrap(True) 
         
         # --- THÊM CHẤT LƯỢNG CHO TỪNG THẺ ---
         self.ui.comboBoxDQuality.addItems(["Best", "1080p", "720p", "480p", "360p", "Worst"])
-        self.ui.comboBoxDownloadOpt.currentTextChanged.connect(self.toggle_quality)
         
         # Kết nối sự kiện thay đổi Option (MP3/MP4)
         self.ui.comboBoxDownloadOpt.currentTextChanged.connect(self.toggle_quality)
         
         # --- FIX 5: ĐẶT MP4 LÀM ĐỊNH DẠNG MẶC ĐỊNH CHO TỪNG THẺ MINI ---
-        self.ui.comboBoxDownloadOpt.setCurrentText("MP4") # THÊM DÒNG NÀY Ở ĐÂY
-
-        # QUAN TRỌNG: Gọi hàm này ngay lập tức để set trạng thái ban đầu
-        self.toggle_quality(self.ui.comboBoxDownloadOpt.currentText())
+        self.ui.comboBoxDownloadOpt.setCurrentText("MP4") 
         
         self.ui.downloadVBtn.clicked.connect(self.handle_download_single)
 
-        # Kết nối sự kiện thay đổi
-        self.ui.comboBoxDownloadOpt.currentTextChanged.connect(self.toggle_quality)
+        # --- KẾT NỐI SỰ KIỆN CHECKBOX ---
+        self.ui.checkBoxDownload.stateChanged.connect(self.update_controls_state)
         
-        # QUAN TRỌNG: Gọi hàm này ngay lập tức để set trạng thái ban đầu
-        self.toggle_quality(self.ui.comboBoxDownloadOpt.currentText())
+        # Mặc định tất cả video sẽ được tick khi mới tìm thấy
+        self.ui.checkBoxDownload.setChecked(True)
+        self.update_controls_state()
 
         if thumb_url:
             self.ui.labelImg.setText("Đang tải...")
@@ -67,9 +67,17 @@ class VideoItemWidget(QWidget):
         style_qual = style_qual.replace("E:/design/ytb_playlist_downloader/img/icon/down_arrow.png", arrow_icon)
         self.ui.comboBoxDQuality.setStyleSheet(style_qual)
 
+    # Hàm cập nhật trạng thái các nút dựa trên Checkbox
+    def update_controls_state(self):
+        is_checked = self.ui.checkBoxDownload.isChecked()
+        self.ui.downloadVBtn.setEnabled(is_checked)
+        self.ui.comboBoxDownloadOpt.setEnabled(is_checked)
+        self.toggle_quality(self.ui.comboBoxDownloadOpt.currentText())
+
     # Hàm ẩn/hiện nút chất lượng
     def toggle_quality(self, text):
-        self.ui.comboBoxDQuality.setEnabled(text != "MP3")
+        is_checked = self.ui.checkBoxDownload.isChecked()
+        self.ui.comboBoxDQuality.setEnabled(is_checked and text != "MP3")
 
     # Hàm xuất dữ liệu cho Download ALL đọc
     def get_download_info(self):

@@ -46,13 +46,28 @@ class DownloadHandler:
         self.ui.statusbar.showMessage("Lỗi tải video")
 
     def handle_download_all(self):
+        # Đếm tổng số video widget đang hiển thị trong scroll area
+        total_widgets = 0
+        for i in range(self.main.scroll_layout.count()):
+            w = self.main.scroll_layout.itemAt(i).widget()
+            if hasattr(w, 'get_download_info'):
+                total_widgets += 1
+
+        if total_widgets == 0: 
+            QMessageBox.warning(self.main, "Cảnh báo", "Vui lòng nhập link Playlist và bấm Find trước!")
+            return
+
+        # Chỉ lấy những video được tick chọn
         items = []
         for i in range(self.main.scroll_layout.count()):
             w = self.main.scroll_layout.itemAt(i).widget()
-            if hasattr(w, 'get_download_info'): items.append(w.get_download_info())
+            if hasattr(w, 'get_download_info'):
+                # Kiểm tra xem checkbox có được tick không
+                if hasattr(w, 'ui') and hasattr(w.ui, 'checkBoxDownload') and w.ui.checkBoxDownload.isChecked():
+                    items.append(w.get_download_info())
             
         if not items: 
-            QMessageBox.warning(self.main, "Cảnh báo", "Vui lòng nhập link Playlist và bấm Find trước!")
+            QMessageBox.warning(self.main, "Cảnh báo", "Vui lòng chọn ít nhất một video để tải!")
             return
         
         root_dir = QFileDialog.getExistingDirectory(self.main, "Chọn thư mục lưu Playlist")
@@ -79,7 +94,7 @@ class DownloadHandler:
 
     def on_dl_all_success(self, path):
         self.ui.downloadAllBtn.setEnabled(True)
-        self.ui.downloadAllBtn.setText("Download ALL") 
+        self.main.update_download_all_btn_text() 
         self.ui.label_2.setText("Hoàn tất!")
         self.ui.progressBar.setValue(100)
         QMessageBox.information(self.main, "Xong!", f"Đã tải thành công toàn bộ playlist vào:\n{path}")
@@ -88,6 +103,6 @@ class DownloadHandler:
         
     def on_dl_all_fail(self, msg):
         self.ui.downloadAllBtn.setEnabled(True)
-        self.ui.downloadAllBtn.setText("Download ALL")
+        self.main.update_download_all_btn_text()
         self.ui.label_2.setText("Lỗi tải xuống!")
         QMessageBox.critical(self.main, "Lỗi", f"Thất bại trong quá trình tải:\n{msg}")

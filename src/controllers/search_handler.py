@@ -152,7 +152,12 @@ class SearchHandler:
         if data['is_playlist']:
             for entry in data['entries']:
                 item_widget = VideoItemWidget(entry['title'], entry['url'], entry['thumbnail'])
+                # Kết nối sự kiện checkbox thay đổi để cập nhật chữ trên nút Download All / Download
+                item_widget.ui.checkBoxDownload.stateChanged.connect(self.main.update_download_all_btn_text)
                 self.main.scroll_layout.addWidget(item_widget, 0, Qt.AlignmentFlag.AlignHCenter)
+            
+            # Cập nhật chữ nút Download All khi vừa nạp xong
+            self.main.update_download_all_btn_text()
                 
             if self.ui.sideBarWidget.width() < 500: 
                 self.main.ui_handler.toggle_sidebar()

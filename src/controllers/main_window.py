@@ -101,3 +101,19 @@ class MyDownloader(QMainWindow):
         while self.scroll_layout.count():
             item = self.scroll_layout.takeAt(0)
             if item.widget(): item.widget().deleteLater()
+
+    def update_download_all_btn_text(self):
+        all_checked = True
+        has_items = False
+        for i in range(self.scroll_layout.count()):
+            item = self.scroll_layout.itemAt(i)
+            if item and item.widget() and isinstance(item.widget(), VideoItemWidget):
+                has_items = True
+                if not item.widget().ui.checkBoxDownload.isChecked():
+                    all_checked = False
+                    break
+        
+        if has_items and all_checked:
+            self.ui.downloadAllBtn.setText("Download ALL")
+        else:
+            self.ui.downloadAllBtn.setText("Download")
