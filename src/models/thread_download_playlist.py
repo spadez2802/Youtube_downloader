@@ -2,7 +2,7 @@ import os
 import re
 import yt_dlp
 from PySide6.QtCore import QThread, Signal
-from utils.helpers import get_asset_path, get_format_string
+from utils.helpers import get_asset_path, get_format_string, get_node_path, get_ffmpeg_path
 
 class PlaylistDownloadThread(QThread):
     finished = Signal(str)
@@ -16,8 +16,8 @@ class PlaylistDownloadThread(QThread):
         self.folder_path = folder_path
 
     def run(self): 
-        node_path = get_asset_path("bin/node.exe")
-        ffmpeg_path = get_asset_path("bin/ffmpeg.exe")
+        node_path = get_node_path()
+        ffmpeg_path = get_ffmpeg_path()
         total = len(self.download_list)
         
         def progress_hook(d):
@@ -38,13 +38,17 @@ class PlaylistDownloadThread(QThread):
                 base_opts = {
                     'noplaylist': True, # TRÓI TAY YTB: Bắt buộc chỉ tải 1 bài, không kéo cả chùm!
                     'ignoreerrors': True, 
-                    'js_runtimes': {'node': {'path': node_path}},
                     'allow_remote_scripts': True,
                     'remote_components': ['ejs:github'],
                     'outtmpl': outtmpl, # Lưu đúng tên từng bài
-                    'ffmpeg_location': ffmpeg_path,
                     'progress_hooks': [progress_hook], 
                 }
+                
+                if node_path:
+                    base_opts['js_runtimes'] = {'node': {'path': node_path}}
+                if ffmpeg_path:
+                    base_opts['ffmpeg_location'] = ffmpeg_path
+
 
                 if item['type'] == "MP4":
                     base_opts.update({'format': get_format_string(item['quality']), 'merge_output_format': 'mp4'})

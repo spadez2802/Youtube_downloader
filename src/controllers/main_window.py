@@ -14,7 +14,7 @@ from models.history_manager import HistoryManager
 from controllers.ui_handler import UIHandler
 from controllers.search_handler import SearchHandler
 from controllers.download_handler import DownloadHandler
-from utils.helpers import get_asset_path 
+from utils.helpers import get_asset_path, get_node_path, get_ffmpeg_path 
 
 class MyDownloader(QMainWindow):
     def __init__(self):
@@ -23,13 +23,15 @@ class MyDownloader(QMainWindow):
         self.ui.setupUi(self)
         
         # --- 1. KHAI BÁO CÁC BIẾN QUAN TRỌNG (Đã được khôi phục) ---
-        node_path = get_asset_path("bin/node.exe")
+        node_path = get_node_path()
         self.YDL_OPTIONS = {
             'quiet': True, 'noplaylist': False, 'extract_flat': True,
-            'js_runtimes': {'node': {'path': node_path}},
             'remote_components': ['ejs:github'], 'skip_download': True,
             'allow_remote_scripts': True, 'check_formats': False
         }
+        if node_path:
+            self.YDL_OPTIONS['js_runtimes'] = {'node': {'path': node_path}}
+
 
         # --- 2. KHỞI TẠO MODEL & HANDLER ---
         self.history_manager = HistoryManager()

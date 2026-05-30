@@ -1,6 +1,6 @@
 import yt_dlp
 from PySide6.QtCore import QThread, Signal
-from utils.helpers import get_asset_path, get_format_string
+from utils.helpers import get_asset_path, get_format_string, get_node_path, get_ffmpeg_path
 
 class DownloadThread(QThread):
     finished = Signal(str)
@@ -14,16 +14,19 @@ class DownloadThread(QThread):
         self.quality = quality
 
     def run(self): 
-        node_path = get_asset_path("bin/node.exe")
-        ffmpeg_path = get_asset_path("bin/ffmpeg.exe")
+        node_path = get_node_path()
+        ffmpeg_path = get_ffmpeg_path()
         try:
             ydl_opts = {
                 'noplaylist': True, # TRÓI TAY YTB LẠI
-                'js_runtimes': {'node': {'path': node_path}},
                 'allow_remote_scripts': True,
                 'remote_components': ['ejs:github'],
-                'ffmpeg_location': ffmpeg_path,
             }
+            if node_path:
+                ydl_opts['js_runtimes'] = {'node': {'path': node_path}}
+            if ffmpeg_path:
+                ydl_opts['ffmpeg_location'] = ffmpeg_path
+
 
             if self.selected_option == "MP4":
                 ydl_opts.update({
