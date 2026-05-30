@@ -9,6 +9,7 @@ from views.custom_widgets import VideoItemWidget
 
 # --- IMPORT MODELS ---
 from models.history_manager import HistoryManager
+from models.thread_network_checker import NetworkChecker
 
 # --- IMPORT HANDLERS ---
 from controllers.ui_handler import UIHandler
@@ -46,6 +47,12 @@ class MyDownloader(QMainWindow):
         self.ui_handler.setup_styling()
         self.ui_handler.init_state()
         self.setup_connections()
+
+        # --- 4. KHỞI TẠO VÀ CHẠY LUỒNG KIỂM TRA MẠNG ---
+        self.is_first_network_check = True
+        self.network_checker = NetworkChecker()
+        self.network_checker.connection_changed.connect(self.handle_connection_change)
+        self.network_checker.start()
 
     # --- CÁC HÀM CƠ BẢN CỦA NHẠC TRƯỞNG ---
     def init_data(self):
@@ -119,3 +126,28 @@ class MyDownloader(QMainWindow):
             self.ui.downloadAllBtn.setText("Download ALL")
         else:
             self.ui.downloadAllBtn.setText("Download")
+
+    def handle_connection_change(self, is_online):
+        if is_online:
+            # Chuyển nền QMainWindow sang màu xanh Spotify
+            self.setStyleSheet("QMainWindow { background-color: #1ED761; }")
+            # Style text statusbar là màu đen và in đậm để nổi bật trên nền xanh
+            self.ui.statusbar.setStyleSheet("QStatusBar { color: black; font-weight: bold; }")
+            
+            # Hiển thị log thông báo màu đen bằng tiếng anh trong 3 giây nếu không phải khởi động lần đầu
+            if not self.is_first_network_check:
+                self.ui.statusbar.showMessage("Internet connection restored", 3000)
+            else:
+                self.is_first_network_check = False
+        else:
+            # Chuyển nền QMainWindow sang màu xám như màu các khung widget (#2b2b2b)
+            self.setStyleSheet("QMainWindow { background-color: #2b2b2b; }")
+            # Thiết lập màu text statusbar là màu trắng
+            self.ui.statusbar.setStyleSheet("QStatusBar { color: white; }")
+            self.ui.statusbar.clearMessage()
+            self.is_first_network_check = False
+
+    def closeEvent(self, event):
+        if hasattr(self, 'network_checker') and self.network_checker.isRunning():
+            self.network_checker.stop()
+        super().closeEvent(event)
