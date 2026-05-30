@@ -137,7 +137,7 @@
 	border-color: rgb(136, 136, 136);
 	border-radius:20px;
 	background-color:rgb(67, 67, 67);
-	color : transparent;
+	color : white;
 	
 }
 </string>
@@ -211,7 +211,7 @@
 	border-color: rgb(136, 136, 136);
 	border-radius:20px;
 	background-color:rgb(67, 67, 67);
-	color : transparent;
+	color : white;
 	
 }</string>
         </property>
@@ -291,7 +291,7 @@
 	border-color: rgb(136, 136, 136);
 	border-radius:20px;
 	background-color:rgb(67, 67, 67);
-	color : transparent;
+	color : white;
 	
 }</string>
         </property>
