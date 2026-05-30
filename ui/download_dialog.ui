@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>400</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QWidget" name="widget_2" native="true">
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QProgressBar" name="progressBar">
+        <property name="value">
+         <number>24</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="widget_3" native="true">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <widget class="QPushButton" name="btnPauseContinue">
+           <property name="styleSheet">
+            <string notr="true">#btnPauseContinue{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color: rgb(67, 67, 67);
+	color : white;
+	padding-left: 30px;
+	/* TÙY CHỈNH FONT CHỮ */
+    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
+    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
+    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
+}
+
+#btnPauseContinue:hover{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color:#1ED761;
+	color : black;
+	
+}
+
+#btnPauseContinue::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 25px;
+    border-top-right-radius: 10px; /* Bo góc cho phần nút bên phải */
+    border-bottom-right-radius: 10px;
+    
+}
+
+#btnPauseContinue::down-arrow {
+	image: url(&quot;E:/design/ytb_playlist_downloader/img/icon/down_arrow.png&quot;);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+}
+
+#btnPauseContinue:disabled{
+	
+	border: 2px solid;
+	border-color: rgb(136, 136, 136);
+	border-radius:20px;
+	background-color:rgb(67, 67, 67);
+	color : transparent;
+	
+}</string>
+           </property>
+           <property name="text">
+            <string>PushButton</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btnCancel">
+           <property name="styleSheet">
+            <string notr="true">#btnCancel{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color: rgb(67, 67, 67);
+	color : white;
+	padding-left: 30px;
+	/* TÙY CHỈNH FONT CHỮ */
+    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
+    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
+    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
+}
+
+#btnCancel:hover{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color:#1ED761;
+	color : black;
+	
+}
+
+#btnCancel::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 25px;
+    border-top-right-radius: 10px; /* Bo góc cho phần nút bên phải */
+    border-bottom-right-radius: 10px;
+    
+}
+
+#btnCancel::down-arrow {
+	image: url(&quot;E:/design/ytb_playlist_downloader/img/icon/down_arrow.png&quot;);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+}
+
+#btnCancel:disabled{
+	
+	border: 2px solid;
+	border-color: rgb(136, 136, 136);
+	border-radius:20px;
+	background-color:rgb(67, 67, 67);
+	color : transparent;
+	
+}</string>
+           </property>
+           <property name="text">
+            <string>PushButton</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="widget" native="true">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="labelThumbnail">
+        <property name="text">
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="videoName"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

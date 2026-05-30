@@ -1,0 +1,52 @@
+#comboBoxDownloadQuality{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color: rgb(67, 67, 67);
+	color : white;
+	padding-left: 30px;
+	/* TÙY CHỈNH FONT CHỮ */
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
+    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
+    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
+}
+
+#comboBoxDownloadQuality:hover{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:20px;
+	background-color:#1ED761;
+	color : black;
+	
+}
+
+#comboBoxDownloadQuality::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 25px;
+    border-top-right-radius: 10px; /* Bo góc cho phần nút bên phải */
+    border-bottom-right-radius: 10px;
+    
+}
+
+#comboBoxDownloadQuality::down-arrow {
+	image: url("E:/design/ytb_playlist_downloader/img/icon/down_arrow.png");
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+}
+
+#comboBoxDownloadQuality:disabled{
+	
+	border: 2px solid;
+	border-color: rgb(136, 136, 136);
+	border-radius:20px;
+	background-color:rgb(67, 67, 67);
+	color : transparent;
+	
+}

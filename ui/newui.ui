@@ -1161,62 +1161,149 @@ QMainWindow {
             </layout>
            </widget>
           </item>
-          <item>
-           <widget class="QWidget" name="widget_7" native="true">
+          <item alignment="Qt::AlignmentFlag::AlignHCenter">
+           <widget class="QWidget" name="widget_11" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_6">
-             <property name="leftMargin">
-              <number>20</number>
-             </property>
-             <property name="rightMargin">
-              <number>20</number>
+            <layout class="QHBoxLayout" name="horizontalLayout_8">
+             <property name="spacing">
+              <number>8</number>
              </property>
              <item>
-              <widget class="QProgressBar" name="progressBar">
+              <widget class="QPushButton" name="btnClearAll">
                <property name="minimumSize">
                 <size>
-                 <width>200</width>
+                 <width>100</width>
                  <height>20</height>
                 </size>
                </property>
-               <property name="maximumSize">
-                <size>
-                 <width>200</width>
-                 <height>20</height>
-                </size>
+               <property name="styleSheet">
+                <string notr="true">#btnClearAll{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:10px;
+	background-color: rgb(67, 67, 67);
+	color : white;
+	padding-left: 10px;
+	/* TÙY CHỈNH FONT CHỮ */
+    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
+    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
+    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
+}
+
+#btnClearAll:hover{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:10px;
+	background-color:#1ED761;
+	color : black;
+	
+}
+
+#btnClearAll::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 25px;
+    border-top-right-radius: 10px; /* Bo góc cho phần nút bên phải */
+    border-bottom-right-radius: 10px;
+    
+}
+
+#btnClearAll::down-arrow {
+	image: url(&quot;E:/design/ytb_playlist_downloader/img/icon/down_arrow.png&quot;);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+}
+
+#btnClearAll:disabled{
+	
+	border: 2px solid;
+	border-color: rgb(136, 136, 136);
+	border-radius:20px;
+	background-color:rgb(67, 67, 67);
+	color : transparent;
+	
+}</string>
                </property>
-               <property name="value">
-                <number>24</number>
+               <property name="text">
+                <string>Clear All</string>
                </property>
               </widget>
              </item>
-             <item alignment="Qt::AlignmentFlag::AlignTop">
-              <widget class="QLabel" name="label_2">
+             <item>
+              <widget class="QPushButton" name="btnChooseAll">
                <property name="minimumSize">
                 <size>
-                 <width>300</width>
-                 <height>50</height>
+                 <width>100</width>
+                 <height>20</height>
                 </size>
                </property>
-               <property name="maximumSize">
-                <size>
-                 <width>300</width>
-                 <height>50</height>
-                </size>
-               </property>
-               <property name="layoutDirection">
-                <enum>Qt::LayoutDirection::LeftToRight</enum>
+               <property name="styleSheet">
+                <string notr="true">#btnChooseAll{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:10px;
+	background-color: rgb(67, 67, 67);
+	color : white;
+	padding-left: 10px;
+	/* TÙY CHỈNH FONT CHỮ */
+    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
+    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
+    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
+}
+
+#btnChooseAll:hover{
+	
+	border: 2px solid;
+	border-color: #1ED761;
+	border-radius:10px;
+	background-color:#1ED761;
+	color : black;
+	
+}
+
+#btnChooseAll::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 25px;
+    border-top-right-radius: 10px; /* Bo góc cho phần nút bên phải */
+    border-bottom-right-radius: 10px;
+    
+}
+
+#btnChooseAll::down-arrow {
+	image: url(&quot;E:/design/ytb_playlist_downloader/img/icon/down_arrow.png&quot;);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+}
+
+#btnChooseAll:disabled{
+	
+	border: 2px solid;
+	border-color: rgb(136, 136, 136);
+	border-radius:10px;
+	background-color:rgb(67, 67, 67);
+	color : transparent;
+	
+}</string>
                </property>
                <property name="text">
-                <string/>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignmentFlag::AlignLeading|Qt::AlignmentFlag::AlignLeft|Qt::AlignmentFlag::AlignTop</set>
+                <string>Choose All</string>
                </property>
               </widget>
              </item>
