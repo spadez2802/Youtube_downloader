@@ -82,10 +82,10 @@ class UIHandler:
         self.ui.verticalLayout_4.setStretchFactor(self.ui.scrollArea, 1)
 
     def init_state(self):
-        self.ui.widget_7.setVisible(False)
         self.ui.downloadAllBtn.setVisible(False)
         self.ui.comboBoxDownloadAllOpt.setVisible(False)
         self.ui.scrollArea.setVisible(False)
+        self.ui.widget_11.setVisible(False)
         self.ui.sideBarWidget.setMinimumWidth(50)
         self.ui.sideBarWidget.setMaximumWidth(50)
 
@@ -120,6 +120,7 @@ class UIHandler:
         self.ui.downloadAllBtn.setVisible(is_opening)
         self.ui.comboBoxDownloadAllOpt.setVisible(is_opening)
         self.ui.scrollArea.setVisible(is_opening)
+        self.ui.widget_11.setVisible(is_opening)
         
         # Cập nhật mũi tên
         self.ui.miniSideBarBtn.setText("▶" if is_opening else "◀")

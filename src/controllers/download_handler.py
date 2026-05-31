@@ -2,21 +2,36 @@ import os
 from PySide6.QtWidgets import QFileDialog, QMessageBox
 from models.thread_download_single import DownloadThread
 from models.thread_download_playlist import PlaylistDownloadThread
+from controllers.download_dialog_controller import DownloadDialog
 
 class DownloadHandler:
     def __init__(self, main_window):
         self.main = main_window
         self.ui = main_window.ui
 
+    def start_single_download_with_dialog(self, url, path, opt, quality, title, initial_pixmap=None, initial_thumb_url=None):
+        thread = DownloadThread(url, path, opt, quality)
+        
+        dialog = DownloadDialog(
+            parent=self.main,
+            title=title, # dialog window title is video name
+            is_playlist=False,
+            thread=thread,
+            initial_pixmap=initial_pixmap,
+            initial_thumb_url=initial_thumb_url,
+            video_title=title
+        )
+        
+        thread.start()
+        dialog.exec()
+
     def handle_single_download(self):
         url = self.ui.enterPlace.text().strip()
         opt = self.ui.comboBoxDownloadOption.currentText()
         if not url: return
         
-        # --- KHÔI PHỤC LÀM SẠCH TÊN FILE ---
         safe_title = self.main.clean_filename(self.main.current_video_title)
         
-        # --- KHÔI PHỤC BỘ LỌC FILE ---
         if opt == "MP4":
             path, _ = QFileDialog.getSaveFileName(self.main, "Lưu Video", safe_title, "Video Files (*.mp4)")
         else:
@@ -24,29 +39,24 @@ class DownloadHandler:
             
         if not path: return
 
-        # --- KHÔI PHỤC TRẠNG THÁI UI ---
         self.ui.enterPlace.setEnabled(False)
         self.ui.statusbar.showMessage("Đang tải video...")
 
-        self.dl_thread = DownloadThread(url, path, opt, self.ui.comboBoxDownloadQuality.currentText())
-        self.dl_thread.finished.connect(self.on_dl_single_success)
-        self.dl_thread.error.connect(self.on_dl_single_fail)
-        self.dl_thread.start()
-
-    def on_dl_single_success(self, path):
-        self.ui.enterPlace.setEnabled(True)
-        self.ui.enterPlace.clear()
-        self.ui.linkName.clear()
-        QMessageBox.information(self.main, "Xong!", f"Đã tải về:\n{path}")
-        self.ui.statusbar.showMessage("Sẵn sàng", 5000)
-
-    def on_dl_single_fail(self, msg):
-        self.ui.enterPlace.setEnabled(True)
-        QMessageBox.critical(self.main, "Lỗi", f"Thất bại: {msg}")
-        self.ui.statusbar.showMessage("Lỗi tải video")
+        try:
+            pixmap = self.ui.videoImg.pixmap()
+            self.start_single_download_with_dialog(
+                url, path, opt, 
+                self.ui.comboBoxDownloadQuality.currentText(),
+                self.main.current_video_title,
+                initial_pixmap=pixmap
+            )
+        finally:
+            self.ui.enterPlace.setEnabled(True)
+            self.ui.enterPlace.clear()
+            self.ui.linkName.clear()
+            self.ui.statusbar.showMessage("Sẵn sàng", 5000)
 
     def handle_download_all(self):
-        # Đếm tổng số video widget đang hiển thị trong scroll area
         total_widgets = 0
         for i in range(self.main.scroll_layout.count()):
             w = self.main.scroll_layout.itemAt(i).widget()
@@ -57,12 +67,10 @@ class DownloadHandler:
             QMessageBox.warning(self.main, "Cảnh báo", "Vui lòng nhập link Playlist và bấm Find trước!")
             return
 
-        # Chỉ lấy những video được tick chọn
         items = []
         for i in range(self.main.scroll_layout.count()):
             w = self.main.scroll_layout.itemAt(i).widget()
             if hasattr(w, 'get_download_info'):
-                # Kiểm tra xem checkbox có được tick không
                 if hasattr(w, 'ui') and hasattr(w.ui, 'checkBoxDownload') and w.ui.checkBoxDownload.isChecked():
                     items.append(w.get_download_info())
             
@@ -81,28 +89,22 @@ class DownloadHandler:
 
         self.ui.downloadAllBtn.setEnabled(False)
         self.ui.downloadAllBtn.setText("Đang tải...") 
-        self.ui.widget_7.setVisible(True)
-        self.ui.label_2.setText("Đang chuẩn bị dữ liệu...")
-        self.ui.progressBar.setValue(0)
 
-        self.pl_thread = PlaylistDownloadThread(items, save_path)
-        self.pl_thread.progress_update.connect(self.ui.progressBar.setValue)
-        self.pl_thread.status_update.connect(self.ui.label_2.setText)
-        self.pl_thread.finished.connect(self.on_dl_all_success)
-        self.pl_thread.error.connect(self.on_dl_all_fail)
-        self.pl_thread.start()
-
-    def on_dl_all_success(self, path):
-        self.ui.downloadAllBtn.setEnabled(True)
-        self.main.update_download_all_btn_text() 
-        self.ui.label_2.setText("Hoàn tất!")
-        self.ui.progressBar.setValue(100)
-        QMessageBox.information(self.main, "Xong!", f"Đã tải thành công toàn bộ playlist vào:\n{path}")
-        self.ui.statusbar.showMessage("Tải playlist xong!", 5000)
-        self.ui.widget_7.setVisible(False)
+        thread = PlaylistDownloadThread(items, save_path)
         
-    def on_dl_all_fail(self, msg):
-        self.ui.downloadAllBtn.setEnabled(True)
-        self.main.update_download_all_btn_text()
-        self.ui.label_2.setText("Lỗi tải xuống!")
-        QMessageBox.critical(self.main, "Lỗi", f"Thất bại trong quá trình tải:\n{msg}")
+        dialog = DownloadDialog(
+            parent=self.main,
+            title=self.main.current_video_title, # playlist title
+            is_playlist=True,
+            thread=thread,
+            video_title="Starting playlist download..."
+        )
+        
+        thread.start()
+        
+        try:
+            dialog.exec()
+        finally:
+            self.ui.downloadAllBtn.setEnabled(True)
+            self.main.update_download_all_btn_text() 
+            self.ui.statusbar.showMessage("Sẵn sàng", 5000)

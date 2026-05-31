@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QMainWindow, QVBoxLayout, QSizePolicy
 from PySide6.QtCore import Qt
 
 # --- IMPORT VIEW ---
-from views.ui_main_ver8_5 import Ui_MainWindow
+from views.ui_main_ver9_1 import Ui_MainWindow
 from views.custom_widgets import VideoItemWidget
 
 # --- IMPORT MODELS ---
@@ -56,8 +56,6 @@ class MyDownloader(QMainWindow):
 
     # --- CÁC HÀM CƠ BẢN CỦA NHẠC TRƯỞNG ---
     def init_data(self):
-        self.ui.label_2.setText("")
-        self.ui.progressBar.setValue(0)
         self.scroll_layout = QVBoxLayout(self.ui.scrollAreaWidgetContents)
         self.scroll_layout.setSpacing(10)
         self.scroll_layout.setAlignment(Qt.AlignmentFlag.AlignTop)
@@ -74,6 +72,8 @@ class MyDownloader(QMainWindow):
         # Kết nối History & Text
         self.ui.clearBtn.clicked.connect(self.ui.enterPlace.clear)
         self.ui.listWidget.itemClicked.connect(self.search_handler.on_history_item_clicked)
+        self.ui.btnClearAll.clicked.connect(self.clear_all_ticks)
+        self.ui.btnChooseAll.clicked.connect(self.choose_all_ticks)
 
         # Mở lịch sử khi click vào ô trống
         self.original_mouse_press = self.ui.enterPlace.mousePressEvent
@@ -101,6 +101,18 @@ class MyDownloader(QMainWindow):
             item = self.scroll_layout.itemAt(i)
             if item and item.widget() and isinstance(item.widget(), VideoItemWidget):
                 item.widget().ui.comboBoxDownloadOpt.setCurrentText(text)
+
+    def clear_all_ticks(self):
+        for i in range(self.scroll_layout.count()):
+            item = self.scroll_layout.itemAt(i)
+            if item and item.widget() and isinstance(item.widget(), VideoItemWidget):
+                item.widget().ui.checkBoxDownload.setChecked(False)
+
+    def choose_all_ticks(self):
+        for i in range(self.scroll_layout.count()):
+            item = self.scroll_layout.itemAt(i)
+            if item and item.widget() and isinstance(item.widget(), VideoItemWidget):
+                item.widget().ui.checkBoxDownload.setChecked(True)
 
     def clean_filename(self, filename):
         clean_name = re.sub(r'[\\/*?:"<>|]', '-', filename)

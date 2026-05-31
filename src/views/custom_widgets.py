@@ -5,7 +5,7 @@ from PySide6.QtGui import QPixmap
 
 # --- IMPORT VIEW (GIAO DIỆN) ---
 # Đảm bảo bạn đã di chuyển file ui_video_ver... vào trong thư mục views
-from views.ui_video_ver6_1 import Ui_miniCard as Ui_VideoMini 
+from views.ui_video_ver6_2 import Ui_miniCard as Ui_VideoMini 
 
 # --- IMPORT MODELS (LUỒNG XỬ LÝ) ---
 from models.thread_thumbnail import ThumbnailThread
@@ -22,6 +22,7 @@ class VideoItemWidget(QWidget):
         self.setAttribute(Qt.WA_StyledBackground, True)
         self.url = url
         self.title = title 
+        self.thumb_url = thumb_url
         
         # --- FIX KÍCH THƯỚC THUMBNAIL TO VÀ CỐ ĐỊNH ---
         self.ui.labelImg.setFixedSize(150, 100)
@@ -87,7 +88,8 @@ class VideoItemWidget(QWidget):
             'clean_name': clean_name,
             'url': self.url,
             'type': self.ui.comboBoxDownloadOpt.currentText(),
-            'quality': self.ui.comboBoxDQuality.currentText()
+            'quality': self.ui.comboBoxDQuality.currentText(),
+            'thumbnail': self.thumb_url
         }
 
     def set_image(self, img_data):
@@ -116,22 +118,19 @@ class VideoItemWidget(QWidget):
             self.ui.downloadVBtn.setEnabled(False)
             self.ui.downloadVBtn.setText("Đang tải...")
 
-            # Truyền thêm quality vào DownloadThread
-            self.thread = DownloadThread(self.url, file_path, selected_option, quality_option)
-            self.thread.finished.connect(self.on_dl_success)
-            self.thread.error.connect(self.on_dl_fail)
-            self.thread.start()
+            main_win = self.window()
+            if hasattr(main_win, 'download_handler'):
+                pixmap = self.ui.labelImg.pixmap()
+                main_win.download_handler.start_single_download_with_dialog(
+                    self.url, file_path, selected_option, quality_option, self.title, initial_pixmap=pixmap
+                )
+                self.ui.downloadVBtn.setText("Xong!")
+            else:
+                QMessageBox.critical(self, "Lỗi", "Không tìm thấy download handler của cửa sổ chính!")
             
         except Exception as e:
             QMessageBox.critical(self, "Lỗi Nút Download", f"Chi tiết lỗi:\n{str(e)}")
             print(f"Lỗi: {e}")
+        finally:
+            self.ui.downloadVBtn.setEnabled(True)
 
-    def on_dl_success(self, path):
-        self.ui.downloadVBtn.setEnabled(True)
-        self.ui.downloadVBtn.setText("Xong!")
-        QMessageBox.information(self, "Xong!", f"Đã tải xong:\n{self.title}")
-
-    def on_dl_fail(self, msg):
-        self.ui.downloadVBtn.setEnabled(True)
-        self.ui.downloadVBtn.setText("Lỗi")
-        QMessageBox.critical(self, "Lỗi", f"Thất bại:\n{msg}")
