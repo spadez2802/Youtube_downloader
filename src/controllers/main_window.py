@@ -4,7 +4,7 @@ from PySide6.QtWidgets import QMainWindow, QVBoxLayout, QSizePolicy
 from PySide6.QtCore import Qt
 
 # --- IMPORT VIEW ---
-from views.ui_main_ver9_1 import Ui_MainWindow
+from views.ui_config import Ui_MainWindow
 from views.custom_widgets import VideoItemWidget
 
 # --- IMPORT MODELS ---
@@ -68,6 +68,16 @@ class MyDownloader(QMainWindow):
         self.ui.downloadBtn.clicked.connect(self.download_handler.handle_single_download)
         self.ui.downloadAllBtn.clicked.connect(self.download_handler.handle_download_all)
         self.ui.miniSideBarBtn.clicked.connect(self.ui_handler.toggle_sidebar)
+        
+        # Kết nối nút History trong menuAAA để toggle sidebar bên trái
+        self.ui.actionHistory.triggered.connect(self.ui_handler.toggle_history_sidebar)
+        
+        # Kết nối nút Delete All và Checkbox trong Sidebar lịch sử trái
+        self.ui.pushButton.clicked.connect(self.search_handler.delete_selected_history_items)
+        self.ui.checkBox.stateChanged.connect(self.search_handler.toggle_all_history_ticks)
+        
+        # Nạp dữ liệu lịch sử lần đầu lên Sidebar trái
+        self.search_handler.refresh_left_history_sidebar()
         
         # Kết nối History & Text
         self.ui.clearBtn.clicked.connect(self.ui.enterPlace.clear)

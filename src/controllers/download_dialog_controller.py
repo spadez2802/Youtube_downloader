@@ -2,7 +2,7 @@ import re
 from PySide6.QtCore import Qt, QSize
 from PySide6.QtWidgets import QDialog, QMessageBox
 from PySide6.QtGui import QPixmap, QIcon
-from views.ui_download_dialog_ver1_0 import Ui_Dialog
+from views.ui_config import Ui_Dialog
 from models.thread_thumbnail import ThumbnailThread
 from utils.helpers import get_asset_path
 

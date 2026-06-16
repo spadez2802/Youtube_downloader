@@ -93,6 +93,79 @@ QMainWindow {
     <property name="bottomMargin">
      <number>0</number>
     </property>
+    <item>
+     <widget class="QScrollArea" name="historyList">
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents_2">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>91</width>
+         <height>796</height>
+        </rect>
+       </property>
+       <widget class="QWidget" name="widget_12" native="true">
+        <property name="geometry">
+         <rect>
+          <x>-40</x>
+          <y>0</y>
+          <width>141</width>
+          <height>258</height>
+         </rect>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_8">
+         <item>
+          <widget class="QWidget" name="widget_7" native="true">
+           <layout class="QHBoxLayout" name="horizontalLayout_6">
+            <item>
+             <widget class="QCheckBox" name="checkBox">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="labelHistory">
+              <property name="text">
+               <string>History</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton">
+              <property name="text">
+               <string>Delete All</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btnShowLeft">
+              <property name="styleSheet">
+               <string notr="true">#btnShowLeft{
+	border: 1px lipid transparent;
+	
+	background-color: transparent;
+}</string>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPlainTextEdit" name="plainTextEdit"/>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </widget>
+    </item>
     <item alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignVCenter">
      <widget class="QWidget" name="widget_3" native="true">
       <property name="sizePolicy">
@@ -1398,12 +1471,26 @@ QMainWindow {
    </property>
    <widget class="QMenu" name="menuAAA">
     <property name="title">
-     <string>AAA</string>
+     <string>...</string>
     </property>
+    <addaction name="separator"/>
+    <addaction name="separator"/>
+    <addaction name="actionHistory"/>
+    <addaction name="actionSetting"/>
    </widget>
    <addaction name="menuAAA"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionHistory">
+   <property name="text">
+    <string>History</string>
+   </property>
+  </action>
+  <action name="actionSetting">
+   <property name="text">
+    <string>Setting</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

@@ -30,9 +30,12 @@ class HistoryManager:
         prefix = "[Playlist] " if is_playlist else "[Video] "
         full_title = f"{prefix}{title}"
         
+        import datetime
+        timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+        
         # Làm sạch list: Xóa bài trùng để đưa bài mới nhất lên đầu
         self.history_data = [item for item in self.history_data if item['url'] != url]
-        self.history_data.insert(0, {'title': full_title, 'url': url})
+        self.history_data.insert(0, {'title': full_title, 'url': url, 'time': timestamp})
         
         # Giới hạn 100 bài gần nhất
         self.history_data = self.history_data[:100]

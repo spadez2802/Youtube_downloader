@@ -5,7 +5,7 @@ from PySide6.QtGui import QPixmap
 
 # --- IMPORT VIEW (GIAO DIỆN) ---
 # Đảm bảo bạn đã di chuyển file ui_video_ver... vào trong thư mục views
-from views.ui_video_ver6_2 import Ui_miniCard as Ui_VideoMini 
+from views.ui_config import Ui_VideoMini 
 
 # --- IMPORT MODELS (LUỒNG XỬ LÝ) ---
 from models.thread_thumbnail import ThumbnailThread
