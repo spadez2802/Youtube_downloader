@@ -10,10 +10,13 @@ MAIN_WINDOW_VERSION = "ver9_6"
 # 2. Video Mini Card UI Version (Ví dụ: "ver6_2" sẽ tự nạp file views.ui_video_ver6_2)
 VIDEO_MINI_VERSION = "ver6_2"
 
-# 3. History Item UI Version (Ví dụ: "ver1_0" sẽ tự nạp file views.ui_history_ver1_0)
-HISTORY_ITEM_VERSION = "ver1_0"
+# 3. History Sidebar UI Version (Ví dụ: "ver2_0" sẽ tự nạp file views.ui_history_ver2_0)
+HISTORY_SIDEBAR_VERSION = "ver2_0"
 
-# 4. Download Dialog UI Version (Ví dụ: "ver1_0" sẽ tự nạp file views.ui_download_dialog_ver1_0)
+# 4. History Dropdown UI Version (Ví dụ: "1_5" sẽ tự nạp file views.history_item1_5)
+HISTORY_DROPDOWN_VERSION = "1_5"
+
+# 5. Download Dialog UI Version (Ví dụ: "ver1_0" sẽ tự nạp file views.ui_download_dialog_ver1_0)
 DOWNLOAD_DIALOG_VERSION = "ver1_0"
 
 
@@ -29,15 +32,18 @@ try:
     video_module = importlib.import_module(f"views.ui_video_{VIDEO_MINI_VERSION}")
     Ui_VideoMini = video_module.Ui_miniCard
 
-    # 3. Tự động nạp History Item UI (Hỗ trợ định dạng cũ và mới)
-    if HISTORY_ITEM_VERSION.startswith("ver"):
-        history_module = importlib.import_module(f"views.ui_history_{HISTORY_ITEM_VERSION}")
-        Ui_historyItm = history_module.Ui_Form
+    # 3. Tự động nạp History Sidebar UI
+    sidebar_module = importlib.import_module(f"views.ui_history_{HISTORY_SIDEBAR_VERSION}")
+    if hasattr(sidebar_module, 'Ui_FormHistoryItem'):
+        Ui_HistorySidebar = sidebar_module.Ui_FormHistoryItem
     else:
-        history_module = importlib.import_module(f"views.history_item{HISTORY_ITEM_VERSION}")
-        Ui_historyItm = history_module.Ui_historyItm
+        Ui_HistorySidebar = sidebar_module.Ui_Form
 
-    # 4. Tự động nạp Download Dialog UI
+    # 4. Tự động nạp History Dropdown UI
+    dropdown_module = importlib.import_module(f"views.history_item{HISTORY_DROPDOWN_VERSION}")
+    Ui_HistoryDropdown = dropdown_module.Ui_historyItm
+
+    # 5. Tự động nạp Download Dialog UI
     dialog_module = importlib.import_module(f"views.ui_download_dialog_{DOWNLOAD_DIALOG_VERSION}")
     Ui_Dialog = dialog_module.Ui_Dialog
 

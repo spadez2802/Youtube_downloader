@@ -2,3 +2,8 @@ __pycache__/
 *.pyc
 history.json
 bin/
+
+# Packaging
+Official_App/
+build/
+*.spec

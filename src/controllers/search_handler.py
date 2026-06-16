@@ -5,19 +5,16 @@ from PySide6.QtGui import QPixmap, QGuiApplication
 from models.thread_fetch_info import FetchInfoThread
 from views.custom_widgets import VideoItemWidget
 
-# IMPORT GIAO DIỆN LỊCH SỬ CŨ CHO DROPDOWN AUTOCLETE
-from views.history_item1_5 import Ui_historyItm
-
-# IMPORT GIAO DIỆN LỊCH SỬ MỚI CHO SIDEBAR TRÁI
-from views.ui_history_ver2_0 import Ui_FormHistoryItem
+# IMPORT GIAO DIỆN LỊCH SỬ TỪ CẤU HÌNH UI_CONFIG.PY ĐỂ KHÔNG BỊ FIX CỨNG PHIÊN BẢN
+from views.ui_config import Ui_HistorySidebar, Ui_HistoryDropdown
 
 # ==========================================================
 # WIDGET CARD LỊCH SỬ SIDEBAR TRÁI (DÙNG UI_HISTORY_VER1_0)
 # ==========================================================
 class HistoryCard(QWidget):
-    def __init__(self, title, url, time_str, parent_handler):
+    def __init__(self, title, url, time_str, parent_handler, item_type='video'):
         super().__init__()
-        self.ui = Ui_FormHistoryItem()
+        self.ui = Ui_HistorySidebar()
         self.ui.setupUi(self)
         
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
@@ -26,25 +23,52 @@ class HistoryCard(QWidget):
         self.url = url
         self.parent_handler = parent_handler
         
-        # Dùng fontMetrics để tính toán chiều dài pixel chuẩn xác cho 2 dòng (~270px)
+        # Dùng fontMetrics để tính toán chiều dài pixel chuẩn xác cho 2 dòng (~200px để tránh lỗi chữ hoa làm trôi dòng)
         fm = self.ui.labelName.fontMetrics()
-        display_title = fm.elidedText(title, Qt.TextElideMode.ElideRight, 270)
+        display_title = fm.elidedText(title, Qt.TextElideMode.ElideRight, 210)
         
-        # Điền tiêu đề và thời gian lưu
+        # Điền tiêu đề
         self.ui.labelName.setText(display_title)
-        self.ui.labelDate.setText(time_str if time_str else "Vừa xong")
         
-        # Cho phép labelName tự động xuống dòng và widget thay đổi chiều cao
+        # --- Chỉ hiển thị giờ (HH:MM) ở labelDate ---
+        time_only = ""
+        if time_str:
+            # time_str có dạng "2026-06-16 16:35" hoặc "Đã lưu"
+            parts = time_str.strip().split(' ')
+            if len(parts) >= 2:
+                time_only = parts[1]  # Lấy phần giờ HH:MM
+            else:
+                time_only = time_str  # Fallback nếu không có ngày
+        else:
+            time_only = "Vừa xong"
+        self.ui.labelDate.setText(time_only)
+        self.ui.labelDate.setStyleSheet("color: #888888; font-size: 11px;")
+        
+        # --- Badge [Video] hoặc [Playlist] bên phải ---
+        if item_type == 'playlist':
+            badge_text = "[Playlist]"
+            badge_color = "#1ED761"
+        else:
+            badge_text = "[Video]"
+            badge_color = "#4A90D9"
+        self.ui.labelType.setText(badge_text)
+        self.ui.labelType.setStyleSheet(
+            f"color: {badge_color}; font-size: 10px; font-weight: bold; "
+            f"background: transparent; padding: 1px 3px; "
+            f"border: 1px solid {badge_color}; border-radius: 3px;"
+        )
+        
+        # Cho phép labelName tự động xuống dòng
         self.ui.labelName.setWordWrap(True)
+        
+        # Giới hạn chiều cao cho labelName cứng ở mức 34px (chính xác 2 dòng)
+        self.ui.labelName.setMaximumHeight(34)
         
         # Đảm bảo labelName chiếm hết không gian trống để nút Option không bị đẩy
         from PySide6.QtWidgets import QSizePolicy
         policy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
         self.ui.labelName.setSizePolicy(policy)
         
-        # Bỏ giới hạn chiều cao cũ
-        self.ui.widget.setMaximumHeight(16777215)
-        self.setMaximumHeight(16777215)
         self.ui.labelName.setMinimumHeight(0)
         self.ui.widget.setMinimumHeight(0)
         self.setMinimumHeight(0)
@@ -129,7 +153,7 @@ class HistoryCard(QWidget):
 class HistoryItemWidget(QWidget):
     def __init__(self, title, url, parent_handler):
         super().__init__()
-        self.ui = Ui_historyItm()
+        self.ui = Ui_HistoryDropdown()
         self.ui.setupUi(self)
         
         self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
@@ -178,8 +202,13 @@ class SearchHandler:
             # File UI của bạn set max_height=48, min=40. Mình set cứng dòng là 45px cho đẹp
             li.setSizeHint(QSize(0, 40)) 
             
+            # Thêm prefix [Video]/[Playlist] vào tiêu đề hiển thị trong dropdown
+            item_type = item.get('type', 'video')
+            prefix = "[Playlist] " if item_type == 'playlist' else "[Video] "
+            display_title = prefix + item['title']
+            
             # Gắn cái giao diện Ui_historyItm của bạn vào dòng
-            custom_widget = HistoryItemWidget(item['title'], item['url'], self)
+            custom_widget = HistoryItemWidget(display_title, item['url'], self)
             self.ui.listWidget.addItem(li)
             self.ui.listWidget.setItemWidget(li, custom_widget)
         
@@ -292,6 +321,9 @@ class SearchHandler:
         self.handle_find()
 
     def refresh_left_history_sidebar(self):
+        import datetime
+        from PySide6.QtWidgets import QLabel, QSizePolicy
+        
         # 1. Dọn dẹp các card cũ trong container
         if hasattr(self.main, 'history_layout') and self.main.history_layout:
             while self.main.history_layout.count():
@@ -299,13 +331,50 @@ class SearchHandler:
                 if item.widget():
                     item.widget().deleteLater()
                     
-            # 2. Tạo card mới cho từng lịch sử từ dữ liệu RAM
+            # 2. Nhóm item theo ngày, tạo header ngày + các card bên dưới
+            today = datetime.date.today()
+            yesterday = today - datetime.timedelta(days=1)
+            last_date_str = None
+
             for item in self.main.history_data:
                 title = item.get('title', '')
                 url = item.get('url', '')
-                time_str = item.get('time', 'Đã lưu')
+                time_str = item.get('time', '')
+                item_type = item.get('type', 'video')
                 
-                card = HistoryCard(title, url, time_str, self)
+                # Xác định ngày của item
+                item_date_str = ""
+                if time_str:
+                    parts = time_str.strip().split(' ')
+                    if len(parts) >= 1:
+                        item_date_str = parts[0]  # "YYYY-MM-DD"
+                
+                # Tạo header ngày nếu ngày mới
+                if item_date_str and item_date_str != last_date_str:
+                    last_date_str = item_date_str
+                    try:
+                        item_date = datetime.date.fromisoformat(item_date_str)
+                        if item_date == today:
+                            prefix = "Today"
+                        elif item_date == yesterday:
+                            prefix = "Yesterday"
+                        else:
+                            prefix = item_date.strftime("%d/%m/%Y")
+                        # Format: "Today - Tuesday, June 16, 2026"
+                        day_name = item_date.strftime("%A, %B %d, %Y")
+                        header_text = f"{prefix} - {day_name}"
+                    except Exception:
+                        header_text = item_date_str
+                    
+                    header_label = QLabel(header_text)
+                    header_label.setStyleSheet(
+                        "color: #cccccc; font-weight: bold; font-size: 11px; "
+                        "padding: 8px 6px 4px 6px; background: transparent;"
+                    )
+                    header_label.setSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Fixed)
+                    self.main.history_layout.addWidget(header_label)
+                
+                card = HistoryCard(title, url, time_str, self, item_type=item_type)
                 # Kết nối sự kiện checkbox
                 card.ui.checkBox.stateChanged.connect(self.update_history_delete_btn_state)
                 self.main.history_layout.addWidget(card)
@@ -317,10 +386,10 @@ class SearchHandler:
         total = 0
         checked = 0
         if hasattr(self.main, 'history_layout') and self.main.history_layout:
-            total = self.main.history_layout.count()
-            for i in range(total):
+            for i in range(self.main.history_layout.count()):
                 item = self.main.history_layout.itemAt(i)
-                if item and item.widget():
+                if item and item.widget() and isinstance(item.widget(), HistoryCard):
+                    total += 1
                     if item.widget().ui.checkBox.isChecked():
                         checked += 1
 
@@ -374,7 +443,7 @@ class SearchHandler:
         if hasattr(self.main, 'history_layout') and self.main.history_layout:
             for i in range(self.main.history_layout.count()):
                 item = self.main.history_layout.itemAt(i)
-                if item and item.widget():
+                if item and item.widget() and isinstance(item.widget(), HistoryCard):
                     item.widget().ui.checkBox.setChecked(is_checked)
         self.update_history_delete_btn_state()
 
@@ -390,7 +459,7 @@ class SearchHandler:
         if hasattr(self.main, 'history_layout') and self.main.history_layout:
             for i in range(self.main.history_layout.count()):
                 item = self.main.history_layout.itemAt(i)
-                if item and item.widget():
+                if item and item.widget() and isinstance(item.widget(), HistoryCard):
                     if item.widget().ui.checkBox.isChecked():
                         urls_to_delete.append(item.widget().url)
                         
