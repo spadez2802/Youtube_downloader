@@ -1,0 +1,857 @@
+/*
+==============================================================================
+  STYLE BACKUP — TheDownloader App
+  Extracted from: newui.ui, download_dialog.ui, mini.ui,
+                  ui_handler.py, search_handler.py, download_dialog_controller.py
+  
+  Accent color (placeholder): ACCENT_COLOR = #1ED761
+  Surface dark:               #2b2b2b
+  Surface button:             #434343  (= rgb(67,67,67))
+  Background:                 #000000
+  Disabled border:            #888888  (= rgb(136,136,136))
+  Text primary:               white
+  Text on accent:             black
+  Border secondary:           #3e3e3e
+==============================================================================
+*/
+
+
+/* ============================================================
+   SECTION 1: MAIN WINDOW & CENTRAL WIDGET
+   Source: newui.ui (line 39-41, 78-81)
+   ============================================================ */
+
+QMainWindow {
+    background-color: ACCENT_COLOR;
+}
+
+#centralwidget {
+    background-color: black;
+}
+
+
+/* ============================================================
+   SECTION 2: SIDEBAR PANEL (RIGHT)
+   Source: newui.ui (line 1024-1027)
+   ============================================================ */
+
+#sideBarWidget {
+    background-color: #2b2b2b;
+}
+
+
+/* ============================================================
+   SECTION 3: SEARCH BOX CARD
+   Source: newui.ui (widget #widget, #widget_2)
+   ============================================================ */
+
+#widget {
+    border-radius: 25px;
+    background: #2b2b2b;
+}
+
+#widget_2 {
+    border: 2px solid transparent;
+    border-radius: 25px;
+    background-color: #2b2b2b;
+}
+
+
+/* ============================================================
+   SECTION 4: ENTER WIDGET (Search input container)
+   Source: newui.ui (#enterWidget)
+   ============================================================ */
+
+#enterWidget {
+    border: 2px solid transparent;
+    border-radius: 25px;
+    background-color: black;
+    color: white;
+    padding: 5px 15px;
+}
+
+#enterWidget:hover {
+    border: 2px solid transparent;
+    border-radius: 25px;
+    background-color: rgb(52, 52, 52);
+    color: white;
+    padding: 5px 15px;
+}
+
+#enterWidget:focus {
+    border: 2px solid transparent;
+    border-radius: 20px;
+    background-color: rgb(29, 29, 29);
+    color: white;
+    padding: 5px 15px;
+}
+
+
+/* ============================================================
+   SECTION 5: SEARCH INPUT (QLineEdit)
+   Source: newui.ui (#enterPlace)
+   ============================================================ */
+
+#enterPlace {
+    border: 2px solid transparent;
+    border-radius: 20px;
+    background-color: transparent;
+    color: white;
+    padding: 5px 15px;
+}
+
+#enterPlace:focus {
+    border: 2px solid transparent;
+    border-radius: 20px;
+    background-color: transparent;
+    color: white;
+    padding: 5px 15px;
+}
+
+
+/* ============================================================
+   SECTION 6: CLEAR BUTTON (✕)
+   Source: ui_handler.py (line 103-106)
+   ============================================================ */
+
+#clearBtn {
+    background: transparent;
+    color: #888;
+    font-size: 18px;
+    font-weight: bold;
+    border: none;
+}
+
+#clearBtn:hover {
+    color: ACCENT_COLOR;
+}
+
+
+/* ============================================================
+   SECTION 7: FIND BUTTON
+   Source: newui.ui (#findBtn)
+   ============================================================ */
+
+#findBtn {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+#findBtn:hover {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: ACCENT_COLOR;
+    color: black;
+}
+
+
+/* ============================================================
+   SECTION 8: LINK NAME LABEL (video title display)
+   Source: newui.ui (#linkName)
+   ============================================================ */
+
+#linkName {
+    border: 2px solid transparent;
+    border-radius: 20px;
+    background-color: black;
+    color: white;
+    padding: 5px 15px;
+}
+
+
+/* ============================================================
+   SECTION 9: VIDEO CONTENT WIDGET
+   Source: newui.ui (#linkContentWidget)
+   ============================================================ */
+
+#linkContentWidget {
+    border: 2px solid transparent;
+    border-radius: 25px;
+    background-color: rgb(0, 0, 0);
+}
+
+
+/* ============================================================
+   SECTION 10: VIDEO IMAGE LABEL
+   Source: newui.ui (#videoImg)
+   ============================================================ */
+
+#videoImg {
+    border: 2px solid transparent;
+    border-radius: 20px;
+}
+
+
+/* ============================================================
+   SECTION 11: DOWNLOAD BUTTON (single video)
+   Source: newui.ui (#downloadBtn)
+   ============================================================ */
+
+#downloadBtn {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+#downloadBtn:hover {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: ACCENT_COLOR;
+    color: black;
+}
+
+#downloadBtn:disabled {
+    border: 2px solid;
+    border-color: rgb(136, 136, 136);
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+}
+
+
+/* ============================================================
+   SECTION 12: COMBOBOX — FORMAT SELECTOR (main, MP3/MP4)
+   Source: newui.ui (#comboBoxDownloadOption)
+   ============================================================ */
+
+#comboBoxDownloadOption {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+    padding-left: 30px;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+#comboBoxDownloadOption:hover {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: ACCENT_COLOR;
+    color: black;
+}
+
+#comboBoxDownloadOption::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 25px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#comboBoxDownloadOption::down-arrow {
+    image: url("ARROW_ICON_PATH");
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+}
+
+#comboBoxDownloadOption:disabled {
+    border: 2px solid;
+    border-color: rgb(136, 136, 136);
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+}
+
+
+/* ============================================================
+   SECTION 13: COMBOBOX — QUALITY SELECTOR
+   Source: newui.ui + btn.css (#comboBoxDownloadQuality)
+   ============================================================ */
+
+#comboBoxDownloadQuality {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+    padding-left: 30px;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+#comboBoxDownloadQuality:hover {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: ACCENT_COLOR;
+    color: black;
+}
+
+#comboBoxDownloadQuality::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 25px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#comboBoxDownloadQuality::down-arrow {
+    image: url("ARROW_ICON_PATH");
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+}
+
+#comboBoxDownloadQuality:disabled {
+    border: 2px solid;
+    border-color: rgb(136, 136, 136);
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: transparent;
+}
+
+#comboBoxDownloadQuality::down-arrow:disabled {
+    image: none;
+}
+
+
+/* ============================================================
+   SECTION 14: DOWNLOAD ALL BUTTON
+   Source: newui.ui (#downloadAllBtn)
+   ============================================================ */
+
+#downloadAllBtn {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+#downloadAllBtn:hover {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: ACCENT_COLOR;
+    color: black;
+}
+
+
+/* ============================================================
+   SECTION 15: COMBOBOX — DOWNLOAD ALL FORMAT
+   Source: newui.ui (#comboBoxDownloadAllOpt)
+   ============================================================ */
+
+#comboBoxDownloadAllOpt {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+    padding-left: 80px;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+#comboBoxDownloadAllOpt:hover {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: ACCENT_COLOR;
+    color: black;
+}
+
+#comboBoxDownloadAllOpt::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 25px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#comboBoxDownloadAllOpt::down-arrow {
+    image: url("ARROW_ICON_PATH");
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+}
+
+
+/* ============================================================
+   SECTION 16: CLEAR ALL / CHOOSE ALL BUTTONS (sidebar top)
+   Source: newui.ui (#btnClearAll, #btnChooseAll)
+   ============================================================ */
+
+#btnClearAll,
+#btnChooseAll {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 10px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+    padding-left: 10px;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+#btnClearAll:hover,
+#btnChooseAll:hover {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 10px;
+    background-color: ACCENT_COLOR;
+    color: black;
+}
+
+#btnClearAll:disabled,
+#btnChooseAll:disabled {
+    border: 2px solid;
+    border-color: rgb(136, 136, 136);
+    border-radius: 10px;
+    background-color: rgb(67, 67, 67);
+    color: transparent;
+}
+
+
+/* ============================================================
+   SECTION 17: MINI SIDEBAR TOGGLE BUTTON (◀ ▶)
+   Source: ui_handler.py (line 81-93)
+   ============================================================ */
+
+#miniSideBarBtn {
+    color: ACCENT_COLOR;
+    font-size: 28px;
+    font-weight: bold;
+    background: transparent;
+    border: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+#miniSideBarBtn:hover {
+    color: white;
+}
+
+#miniSideBarBtn:disabled {
+    color: #555;
+}
+
+
+/* ============================================================
+   SECTION 18: HISTORY AUTOCOMPLETE LIST
+   Source: newui.ui (#listWidget)
+   ============================================================ */
+
+#listWidget {
+    background-color: transparent;
+    color: white;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    padding: 5px;
+    outline: 0;
+}
+
+#listWidget::item {
+    border-radius: 12px;
+    margin: 2px 4px;
+}
+
+#listWidget::item:hover {
+    background-color: rgb(67, 67, 67);
+}
+
+#listWidget::item:selected {
+    background-color: rgb(80, 80, 80);
+    color: ACCENT_COLOR;
+}
+
+
+/* ============================================================
+   SECTION 19: MENU BAR
+   Source: ui_handler.py (line 21-37)
+   ============================================================ */
+
+QMenuBar {
+    background-color: transparent;
+    border: none;
+}
+
+QMenuBar::item {
+    font-size: 20px;
+    color: white;
+    background-color: transparent;
+    margin: 0px 0px 0px 10px;
+    padding: 2px 10px;
+    border-radius: 6px;
+}
+
+QMenuBar::item:selected {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+
+/* ============================================================
+   SECTION 20: DROP-DOWN MENU (● ● ●)
+   Source: ui_handler.py (line 41-70)
+   ============================================================ */
+
+QMenu {
+    background-color: #2b2b2b;
+    border: 1px solid #3e3e3e;
+    border-radius: 8px;
+    padding: 4px;
+}
+
+QMenu::item {
+    font-size: 13px;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    color: white;
+    padding: 6px 25px;
+    border-radius: 4px;
+}
+
+QMenu::item:selected,
+QMenu::item:checked {
+    background-color: ACCENT_COLOR;
+    color: black;
+    font-weight: bold;
+}
+
+QMenu::indicator {
+    image: none;
+    width: 0px;
+    height: 0px;
+}
+
+QMenu::separator {
+    height: 1px;
+    background-color: #3e3e3e;
+    margin: 4px 0px;
+}
+
+
+/* ============================================================
+   SECTION 21: HISTORY SIDEBAR (LEFT PANEL)
+   Source: ui_handler.py (line 135-141, 182)
+   ============================================================ */
+
+/* Normal state (collapsed) */
+/* Applied via setStyleSheet in ui_handler.py:
+   QScrollArea { border: none; background-color: #2b2b2b; border-right: 1px solid #3e3e3e; }
+*/
+
+/* Expanded state */
+/* QScrollArea { border-right: 2px solid ACCENT_COLOR; background-color: #2b2b2b; } */
+
+
+/* ============================================================
+   SECTION 22: HISTORY CARD (left sidebar items)
+   Source: search_handler.py (line 77-82)
+   ============================================================ */
+
+HistoryCard:hover {
+    background-color: #3e3e3e;
+    border-radius: 4px;
+}
+
+
+/* ============================================================
+   SECTION 23: HISTORY OPT CONTEXT MENU
+   Source: search_handler.py (line 94-111)
+   ============================================================ */
+
+/* (Reuses QMenu styles above, with slight overrides) */
+/* background-color: #212121; border: 1px solid #3d3d3d; color: #e0e0e0 */
+/* QMenu::item:selected { background-color: #3d3d3d; } */
+
+
+/* ============================================================
+   SECTION 24: DELETE BUTTON (history sidebar)
+   Source: search_handler.py (line 409-429)
+   ============================================================ */
+
+/* Applied to #pushButton (history delete) dynamically */
+/*
+QPushButton {
+    border: 2px solid ACCENT_COLOR;
+    border-radius: 12px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+    padding: 2px 10px;
+    font-family: "Segoe UI", sans-serif;
+    font-weight: bold;
+}
+QPushButton:hover {
+    background-color: ACCENT_COLOR;
+    color: black;
+}
+QPushButton:disabled {
+    border-color: rgb(136, 136, 136);
+    background-color: rgb(67, 67, 67);
+    color: #888888;
+}
+*/
+
+
+/* ============================================================
+   SECTION 25: DOWNLOAD DIALOG (QDialog)
+   Source: download_dialog_controller.py (line 38-70)
+   ============================================================ */
+
+QDialog {
+    background-color: #2b2b2b;
+    color: white;
+}
+
+QLabel {
+    color: white;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 11pt;
+}
+
+QTextEdit {
+    background-color: black;
+    color: white;
+    border: 1px solid ACCENT_COLOR;
+    border-radius: 10px;
+    padding: 8px;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 11pt;
+}
+
+QProgressBar {
+    border: 2px solid ACCENT_COLOR;
+    border-radius: 10px;
+    background-color: #434343;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    height: 25px;
+}
+
+QProgressBar::chunk {
+    background-color: ACCENT_COLOR;
+    border-radius: 8px;
+}
+
+
+/* ============================================================
+   SECTION 26: PAUSE/CANCEL BUTTONS (download dialog)
+   Source: download_dialog.ui (#btnPauseContinue, #btnCancel)
+   ============================================================ */
+
+#btnPauseContinue,
+#btnCancel {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+    padding-left: 30px;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+#btnPauseContinue:hover,
+#btnCancel:hover {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: ACCENT_COLOR;
+    color: black;
+}
+
+#btnPauseContinue:disabled,
+#btnCancel:disabled {
+    border: 2px solid;
+    border-color: rgb(136, 136, 136);
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: transparent;
+}
+
+
+/* ============================================================
+   SECTION 27: VIDEO ITEM CARD (mini.ui — playlist items)
+   Source: ui_video_ver6_2.py (#miniCard, #downloadVBtn, #comboBoxDownloadOpt, #comboBoxDQuality)
+   ============================================================ */
+
+#miniCard {
+    border: 5px solid transparent;
+    border-radius: 20px;
+    background-color: rgb(0, 0, 0);
+}
+
+#widgetDownloadOpt {
+    background-color: transparent;
+}
+
+#downloadVBtn {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+#downloadVBtn:hover {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: ACCENT_COLOR;
+    color: black;
+}
+
+#downloadVBtn:disabled {
+    border: 2px solid;
+    border-color: rgb(136, 136, 136);
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+}
+
+#comboBoxDownloadOpt {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+    padding-left: 20px;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+#comboBoxDownloadOpt:hover {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: ACCENT_COLOR;
+    color: black;
+}
+
+#comboBoxDownloadOpt::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 25px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#comboBoxDownloadOpt::down-arrow {
+    image: url("ARROW_ICON_PATH");
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+}
+
+#comboBoxDownloadOpt:disabled {
+    border: 2px solid;
+    border-color: rgb(136, 136, 136);
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+}
+
+#comboBoxDQuality {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+    padding-left: 20px;
+    font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 11pt;
+    font-weight: bold;
+}
+
+#comboBoxDQuality:hover {
+    border: 2px solid;
+    border-color: ACCENT_COLOR;
+    border-radius: 20px;
+    background-color: ACCENT_COLOR;
+    color: black;
+}
+
+#comboBoxDQuality::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 25px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+#comboBoxDQuality::down-arrow {
+    image: url("ARROW_ICON_PATH");
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    width: 12px;
+    height: 12px;
+    margin-right: 10px;
+}
+
+#comboBoxDQuality:disabled {
+    border: 2px solid;
+    border-color: rgb(136, 136, 136);
+    border-radius: 20px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+}
+
+
+/* ============================================================
+   SECTION 28: MESSAGEBOX (confirm dialogs)
+   Source: search_handler.py (line 481-503)
+   ============================================================ */
+
+QMessageBox {
+    background-color: #2b2b2b;
+}
+
+QMessageBox QLabel {
+    color: white;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 11pt;
+}
+
+QMessageBox QPushButton {
+    border: 2px solid ACCENT_COLOR;
+    border-radius: 12px;
+    background-color: rgb(67, 67, 67);
+    color: white;
+    padding: 4px 15px;
+    font-family: "Segoe UI", sans-serif;
+    font-weight: bold;
+    min-width: 60px;
+}
+
+QMessageBox QPushButton:hover {
+    background-color: ACCENT_COLOR;
+    color: black;
+}
