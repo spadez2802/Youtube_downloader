@@ -91,24 +91,7 @@ class HistoryCard(QWidget):
         from PySide6.QtGui import QAction
         
         self.opt_menu = QMenu(self)
-        self.opt_menu.setStyleSheet("""
-            QMenu {
-                background-color: #212121;
-                border: 1px solid #3d3d3d;
-                border-radius: 6px;
-                padding: 4px 0px;
-                color: #e0e0e0;
-            }
-            QMenu::item {
-                padding: 8px 24px 8px 24px;
-                font-family: "Segoe UI", sans-serif;
-                font-size: 13px;
-                background-color: transparent;
-            }
-            QMenu::item:selected {
-                background-color: #3d3d3d;
-            }
-        """)
+
         
         # Thêm 2 option hiện có
         self.act_copy = QAction("Copy link", self)
@@ -406,27 +389,7 @@ class SearchHandler:
         # Cập nhật nút Delete
         btn = self.main.ui.pushButton
         
-        btn.setStyleSheet("""
-            QPushButton {
-                border: 2px solid;
-                border-color: #1ED761;
-                border-radius:12px;
-                background-color: rgb(67, 67, 67);
-                color : white;
-                padding: 2px 10px;
-                font-family: "Segoe UI", sans-serif;
-                font-weight: bold;
-            }
-            QPushButton:hover {
-                background-color:#1ED761;
-                color : black;
-            }
-            QPushButton:disabled {
-                border-color: rgb(136, 136, 136);
-                background-color:rgb(67, 67, 67);
-                color : #888888;
-            }
-        """)
+
 
         if checked == 0:
             btn.setEnabled(False)
@@ -478,30 +441,7 @@ class SearchHandler:
         msg_box.setDefaultButton(QMessageBox.StandardButton.No)
         
         # Style cho QMessageBox phù hợp với giao diện tối
-        msg_box.setStyleSheet("""
-            QMessageBox {
-                background-color: #2b2b2b;
-            }
-            QLabel {
-                color: white;
-                font-family: "Segoe UI", sans-serif;
-                font-size: 11pt;
-            }
-            QPushButton {
-                border: 2px solid #1ED761;
-                border-radius: 12px;
-                background-color: rgb(67, 67, 67);
-                color: white;
-                padding: 4px 15px;
-                font-family: "Segoe UI", sans-serif;
-                font-weight: bold;
-                min-width: 60px;
-            }
-            QPushButton:hover {
-                background-color: #1ED761;
-                color: black;
-            }
-        """)
+
 
         if msg_box.exec() != QMessageBox.StandardButton.Yes:
             return

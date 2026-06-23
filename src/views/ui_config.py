@@ -5,19 +5,19 @@ import importlib
 # Khi bạn thêm file UI mới vào thư mục views, chỉ cần cập nhật tên phiên bản tương ứng ở dưới.
 
 # 1. Main Window UI Version (Ví dụ: "ver9_4" sẽ tự nạp file views.ui_main_ver9_4)
-MAIN_WINDOW_VERSION = "ver9_6"
+MAIN_WINDOW_VERSION = "ver10_0"
 
 # 2. Video Mini Card UI Version (Ví dụ: "ver6_2" sẽ tự nạp file views.ui_video_ver6_2)
-VIDEO_MINI_VERSION = "ver6_2"
+VIDEO_MINI_VERSION = "ver7_0"
 
 # 3. History Sidebar UI Version (Ví dụ: "ver2_0" sẽ tự nạp file views.ui_history_ver2_0)
-HISTORY_SIDEBAR_VERSION = "ver2_0"
+HISTORY_SIDEBAR_VERSION = "ver3_0"
 
 # 4. History Dropdown UI Version (Ví dụ: "1_5" sẽ tự nạp file views.history_item1_5)
-HISTORY_DROPDOWN_VERSION = "1_5"
+HISTORY_DROPDOWN_VERSION = "2_0"
 
 # 5. Download Dialog UI Version (Ví dụ: "ver1_0" sẽ tự nạp file views.ui_download_dialog_ver1_0)
-DOWNLOAD_DIALOG_VERSION = "ver1_0"
+DOWNLOAD_DIALOG_VERSION = "ver2_0"
 
 
 # --- AUTOMATIC DYNAMIC IMPORTS ---

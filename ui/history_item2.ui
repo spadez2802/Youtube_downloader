@@ -13,24 +13,6 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true">/* Trạng thái bình thường: Nền trong suốt */
-#FormHistoryItem {
-  background-color: transparent;
-  
-  /* Chỉ áp dụng hiệu ứng chuyển đổi cho màu nền để tránh ảnh hưởng các thuộc tính khác */
-  transition: background-color 0.2s ease-in-out; 
-}
-
-/* Trạng thái khi di chuột vào (hover): Nền sáng lên */
-#FormHistoryItem:hover {
-  /* Mã màu ví dụ: Trắng mờ. Bạn có thể đổi sang màu khác phù hợp với giao diện */
-  background-color: rgba(255, 255, 255, 0.15); 
-}
-
-
-</string>
-  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <property name="spacing">
     <number>0</number>
@@ -50,6 +32,9 @@
    <item>
     <widget class="QWidget" name="widgetDate" native="true">
      <layout class="QHBoxLayout" name="horizontalLayoutDate">
+      <property name="spacing">
+       <number>4</number>
+      </property>
       <property name="leftMargin">
        <number>4</number>
       </property>
@@ -62,9 +47,6 @@
       <property name="bottomMargin">
        <number>2</number>
       </property>
-      <property name="spacing">
-       <number>4</number>
-      </property>
       <item>
        <widget class="QLabel" name="labelDate">
         <property name="text">
@@ -75,7 +57,7 @@
       <item>
        <spacer name="horizontalSpacer">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -142,13 +124,10 @@
          </size>
         </property>
         <property name="text">
-         <string>&#8942;</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QToolButton { background: transparent; border: none; color: #b3b3b3; font-size: 16px; font-weight: bold; } QToolButton:hover { color: white; } QToolButton::menu-indicator { image: none; }</string>
+         <string>⋮</string>
         </property>
         <property name="popupMode">
-         <enum>QToolButton::InstantPopup</enum>
+         <enum>QToolButton::ToolButtonPopupMode::InstantPopup</enum>
         </property>
        </widget>
       </item>

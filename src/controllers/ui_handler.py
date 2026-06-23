@@ -17,57 +17,11 @@ class UIHandler:
         # Thay thế dấu "." truyền thống thành dấu chấm tròn đặc sắc nét và to lớn hơn
         self.ui.menuAAA.setTitle("● ● ●") 
         
-        # Áp dụng stylesheet để tùy chỉnh kích thước và hiệu ứng hover
-        self.ui.menubar.setStyleSheet("""
-            QMenuBar {
-                background-color: transparent;
-                border: none;
-            }
-            QMenuBar::item {
-                font-size: 20px; /* Tăng cỡ chữ dấu chấm tròn to rõ cực đẹp */
-                color: white;
-                background-color: transparent;
-                margin: 0px 0px 0px 10px;
-                padding: 2px 10px;
-                border-radius: 6px;
-            }
-            QMenuBar::item:selected {
-                background-color: rgba(255, 255, 255, 0.2);
-            }
-        """)
+
 
         self.ui.actionHistory.setCheckable(True)
 
-        self.ui.menuAAA.setStyleSheet("""
-            QMenu {
-                background-color: #2b2b2b;
-                border: 1px solid #3e3e3e;
-                border-radius: 8px;
-                padding: 4px;
-            }
-            QMenu::item {
-                font-size: 13px;
-                font-family: "Segoe UI", Helvetica, Arial, sans-serif;
-                color: white;
-                padding: 6px 25px;
-                border-radius: 4px;
-            }
-            QMenu::item:selected, QMenu::item:checked {
-                background-color: #1ED761;
-                color: black;
-                font-weight: bold;
-            }
-            QMenu::indicator {
-                image: none;
-                width: 0px;
-                height: 0px;
-            }
-            QMenu::separator {
-                height: 1px;
-                background-color: #3e3e3e;
-                margin: 4px 0px;
-            }
-        """)
+
 
         # --- FIX 2: THÊM LOGO APP (GÓC TRÁI MÀN HÌNH & TASKBAR) ---
         # Zun hãy kiểm tra xem trong thư mục img/icon/ đã có file logo chưa nhé.
@@ -76,44 +30,16 @@ class UIHandler:
         app_icon_path = get_asset_path("img/icon/app_logo.png")
         self.main.setWindowIcon(QIcon(app_icon_path))
 
-        # --- FIX 3: KHÔI PHỤC MÀU SẮC VÀ KÍCH THƯỚC NÚT SIDEBAR ---
-        # Ép CSS cho nút sidebar to, đậm, màu xanh lục bảo đặc trưng
-        self.ui.miniSideBarBtn.setStyleSheet("""
-            QPushButton { 
-                color: #1ED761; 
-                font-size: 28px; 
-                font-weight: bold; 
-                background: transparent; 
-                border: none; 
-                padding: 0px;
-                margin: 0px;
-            }
-            QPushButton:hover { color: white; }
-            QPushButton:disabled { color: #555; } /* Màu xám khi bị khóa */
-        """)
+
 
         # (Giữ nguyên các phần styling khác...)
         self.main.setCursor(Qt.CursorShape.ArrowCursor)
         self.ui.centralwidget.setCursor(Qt.CursorShape.ArrowCursor)
         self.ui.scrollArea.setWidgetResizable(True)
         self.ui.scrollArea.setFrameShape(QFrame.NoFrame)
-        self.ui.scrollArea.setStyleSheet("QScrollArea { border: none; background: transparent; }")
         
         self.ui.clearBtn.setText("✕") 
-        self.ui.clearBtn.setStyleSheet("""
-            QPushButton { background: transparent; color: #888; font-size: 18px; font-weight: bold; border: none; }
-            QPushButton:hover { color: #1ED761; }
-        """)
         self.ui.clearBtn.setVisible(False) 
-
-        arrow_icon = get_asset_path("img/icon/down_arrow.png")
-        for combo in [self.ui.comboBoxDownloadOption, self.ui.comboBoxDownloadAllOpt]:
-            combo.setStyleSheet(combo.styleSheet().replace("E:/design/ytb_playlist_downloader/img/icon/down_arrow.png", arrow_icon))
-
-        qual_style = self.ui.comboBoxDownloadQuality.styleSheet().replace("E:/design/ytb_playlist_downloader/img/icon/down_arrow.png", arrow_icon)
-        qual_style = qual_style.replace("#comboBoxDowloadQuality:disabled", "#comboBoxDownloadQuality:disabled")
-        qual_style += "\n#comboBoxDownloadQuality::down-arrow:disabled { image: none; }"
-        self.ui.comboBoxDownloadQuality.setStyleSheet(qual_style)
 
         # Mở khóa chiều cao và chiều rộng để tránh bị chèn khi cả 2 sidebar cùng mở
         self.main.setMaximumHeight(16777215)

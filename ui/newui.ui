@@ -34,12 +34,6 @@
   <property name="layoutDirection">
    <enum>Qt::LayoutDirection::LeftToRight</enum>
   </property>
-  <property name="styleSheet">
-   <string notr="true">
-QMainWindow {
-    background-color: #1ED761; /* Đây là màu xám đen hiện đại */
-}</string>
-  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="enabled">
     <bool>true</bool>
@@ -74,12 +68,6 @@ QMainWindow {
    <property name="layoutDirection">
     <enum>Qt::LayoutDirection::LeftToRight</enum>
    </property>
-   <property name="styleSheet">
-    <string notr="true">#centralwidget{
-    background-color: black/* Đây là màu xám đen hiện đại */
-
-}</string>
-   </property>
    <layout class="QHBoxLayout" name="horizontalLayout_2">
     <property name="leftMargin">
      <number>0</number>
@@ -103,7 +91,7 @@ QMainWindow {
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>91</width>
+         <width>114</width>
          <height>796</height>
         </rect>
        </property>
@@ -143,13 +131,6 @@ QMainWindow {
             </item>
             <item>
              <widget class="QPushButton" name="btnShowLeft">
-              <property name="styleSheet">
-               <string notr="true">#btnShowLeft{
-	border: 1px lipid transparent;
-	
-	background-color: transparent;
-}</string>
-              </property>
               <property name="text">
                <string/>
               </property>
@@ -186,12 +167,6 @@ QMainWindow {
         <height>600</height>
        </size>
       </property>
-      <property name="styleSheet">
-       <string notr="true">#widget_3{
-		
-	background-color: transparent;
-}</string>
-      </property>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignBottom">
         <widget class="QWidget" name="widget" native="true">
@@ -222,13 +197,6 @@ QMainWindow {
            <height>0</height>
           </size>
          </property>
-         <property name="styleSheet">
-          <string notr="true">#widget{
-
-	border-radius: 25px;
-	background: #2b2b2b;
-}</string>
-         </property>
          <layout class="QVBoxLayout" name="verticalLayout_2">
           <item alignment="Qt::AlignmentFlag::AlignHCenter|Qt::AlignmentFlag::AlignTop">
            <widget class="QLabel" name="labelEnterLink">
@@ -250,15 +218,6 @@ QMainWindow {
               <pointsize>18</pointsize>
               <bold>true</bold>
              </font>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">#labelEnterLink{
-	/* TÙY CHỈNH FONT CHỮ */
-    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
-    font-size: 18pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
-    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
-	color:white;
-}</string>
             </property>
             <property name="text">
              <string>Enter link</string>
@@ -345,35 +304,6 @@ QMainWindow {
                     <height>50</height>
                    </size>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">#enterWidget {
-    /* Quan trọng: Phải có border thì radius mới hoạt động chuẩn */
-    border: 2px solid transparent; 
-    border-radius: 25px; /* Chỉnh số này cho đến khi vừa ý */
-	background-color: black;
-    color: white;
-    padding: 5px 15px; /* Cho chữ cách lề ra một chút nhìn sẽ sang hơn */
-}
-
-#enterWidget:hover{
-    /* Quan trọng: Phải có border thì radius mới hoạt động chuẩn */
-    border: 2px solid transparent; 
-    border-radius: 25px; /* Chỉnh số này cho đến khi vừa ý */
-	background-color: rgb(52, 52, 52);
-    color: white;
-    padding: 5px 15px; /* Cho chữ cách lề ra một chút nhìn sẽ sang hơn */
-}
-
-#enterWidget:focus{
-    /* Quan trọng: Phải có border thì radius mới hoạt động chuẩn */
-    border: 2px solid transparent; 
-    border-radius: 20px; /* Chỉnh số này cho đến khi vừa ý */
-	background-color: rgb(29, 29, 29);
-    color: white;
-    padding: 5px 15px; /* Cho chữ cách lề ra một chút nhìn sẽ sang hơn */
-}
-</string>
-                  </property>
                   <layout class="QHBoxLayout" name="horizontalLayout_4">
                    <property name="leftMargin">
                     <number>0</number>
@@ -407,26 +337,6 @@ QMainWindow {
                        <height>40</height>
                       </size>
                      </property>
-                     <property name="styleSheet">
-                      <string notr="true">#enterPlace {
-    /* Quan trọng: Phải có border thì radius mới hoạt động chuẩn */
-    border: 2px solid transparent; 
-    border-radius: 20px; /* Chỉnh số này cho đến khi vừa ý */
-	background-color: transparent;
-    color: white;
-    padding: 5px 15px; /* Cho chữ cách lề ra một chút nhìn sẽ sang hơn */
-}
-
-#enterPlace:focus{
-    /* Quan trọng: Phải có border thì radius mới hoạt động chuẩn */
-    border: 2px solid transparent; 
-    border-radius: 20px; /* Chỉnh số này cho đến khi vừa ý */
-	background-color: transparent;
-    color: white;
-    padding: 5px 15px; /* Cho chữ cách lề ra một chút nhìn sẽ sang hơn */
-}
-</string>
-                     </property>
                     </widget>
                    </item>
                    <item>
@@ -436,12 +346,6 @@ QMainWindow {
                        <width>40</width>
                        <height>40</height>
                       </size>
-                     </property>
-                     <property name="styleSheet">
-                      <string notr="true">#clearBtn{
-	background-color: transparent;
-	border: 1px solid transparent;
-}</string>
                      </property>
                      <property name="text">
                       <string/>
@@ -474,33 +378,6 @@ QMainWindow {
                   <property name="autoFillBackground">
                    <bool>false</bool>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">#listWidget {
-                background-color:transparent; 
-                color: white;
-                border-radius: 10px; 
-                border: 1px solid transparent;
-                padding: 5px; 
-                outline: 0; /* Bỏ đường viền đứt nét khi được chọn */
-            }
-            
-            /* Cấu hình cho TỪNG DÒNG (item) bên trong list */
-            #listWidget::item { 
-                border-radius: 12px; /* Đặt độ bo góc bạn muốn ở đây */
-                margin: 2px 4px; /* Tạo khoảng trống xung quanh để thấy rõ góc bo */
-            }
-            
-            /* Hiệu ứng khi HOVER vào dòng */
-            #listWidget::item:hover { 
-                background-color: rgb(67, 67, 67); 
-            }
-            
-            /* Hiệu ứng khi CLICK (chọn) dòng */
-            #listWidget::item:selected {
-                background-color: rgb(80, 80, 80);
-                color: #1ED761;
-            }</string>
-                  </property>
                   <property name="showDropIndicator" stdset="0">
                    <bool>true</bool>
                   </property>
@@ -522,32 +399,6 @@ QMainWindow {
                  <width>100</width>
                  <height>40</height>
                 </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">#findBtn{
-	
-	border: 2px solid;
-	border-color: #1ED761;
-	border-radius:20px;
-	background-color: rgb(67, 67, 67);
-	color : white;
-	/* TÙY CHỈNH FONT CHỮ */
-    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
-    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
-    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
-}
-
-#findBtn:hover{
-	
-	border: 2px solid;
-	border-color: #1ED761;
-	border-radius:20px;
-	background-color: #1ED761;
-	color : black;
-	
-}
-
-</string>
                </property>
                <property name="text">
                 <string>Find</string>
@@ -580,13 +431,6 @@ QMainWindow {
            <height>250</height>
           </size>
          </property>
-         <property name="styleSheet">
-          <string notr="true">#widget_2{
-	border: 2px solid transparent;
-	border-radius:25px;
-	background-color:#2b2b2b;
-}</string>
-         </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <property name="leftMargin">
            <number>0</number>
@@ -613,12 +457,6 @@ QMainWindow {
               <width>590</width>
               <height>50</height>
              </size>
-            </property>
-            <property name="styleSheet">
-             <string notr="true">#widget_4{
-	
-	background-color: transparent;
-}</string>
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout">
              <property name="leftMargin">
@@ -647,16 +485,6 @@ QMainWindow {
                  <height>40</height>
                 </size>
                </property>
-               <property name="styleSheet">
-                <string notr="true">#linkName {
-    /* Quan trọng: Phải có border thì radius mới hoạt động chuẩn */
-    border: 2px solid transparent; 
-    border-radius: 20px; /* Chỉnh số này cho đến khi vừa ý */
-	background-color: black;
-    color: white;
-    padding: 5px 15px; /* Cho chữ cách lề ra một chút nhìn sẽ sang hơn */
-}</string>
-               </property>
                <property name="text">
                 <string/>
                </property>
@@ -684,60 +512,6 @@ QMainWindow {
                </property>
                <property name="layoutDirection">
                 <enum>Qt::LayoutDirection::LeftToRight</enum>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">#comboBoxDownloadOption{
-	
-	border: 2px solid;
-	border-color: #1ED761;
-	border-radius:20px;
-	background-color: rgb(67, 67, 67);
-	color : white;
-	padding-left: 30px;
-	/* TÙY CHỈNH FONT CHỮ */
-    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
-    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
-    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
-}
-
-#comboBoxDownloadOption:hover{
-	
-	border: 2px solid;
-	border-color: #1ED761;
-	border-radius:20px;
-	background-color:#1ED761;
-	color : black;
-	
-}
-
-#comboBoxDownloadOption::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 25px;
-    border-top-right-radius: 10px; /* Bo góc cho phần nút bên phải */
-    border-bottom-right-radius: 10px;
-    
-}
-
-#comboBoxDownloadOption::down-arrow {
-	image: url(&quot;E:/design/ytb_playlist_downloader/img/icon/down_arrow.png&quot;);
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    
-    width: 12px;
-    height: 12px;
-    margin-right: 10px;
-}
-
-#comboBoxDownloadOption:disabled{
-	
-	border: 2px solid;
-	border-color: rgb(136, 136, 136);
-	border-radius:20px;
-	background-color:rgb(67, 67, 67);
-	color :white;
-	
-}</string>
                </property>
                <item>
                 <property name="text">
@@ -768,13 +542,6 @@ QMainWindow {
               <height>160</height>
              </size>
             </property>
-            <property name="styleSheet">
-             <string notr="true">#linkContentWidget{
-	border: 2px solid transparent; 
-    border-radius: 25px; /* Chỉnh số này cho đến khi vừa ý */
-	background-color: rgb(0, 0, 0);
-}</string>
-            </property>
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <property name="spacing">
               <number>0</number>
@@ -804,12 +571,6 @@ QMainWindow {
                  <width>200</width>
                  <height>125</height>
                 </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">#videoImg{
-	border: 2px solid transparent; 
-    border-radius: 20px; /* Chỉnh số này cho đến khi vừa ý */
-}</string>
                </property>
                <property name="text">
                 <string/>
@@ -860,40 +621,6 @@ QMainWindow {
                     <height>40</height>
                    </size>
                   </property>
-                  <property name="styleSheet">
-                   <string notr="true">#downloadBtn{
-	
-	border: 2px solid;
-	border-color: #1ED761;
-	border-radius:20px;
-	background-color: rgb(67, 67, 67);
-	color : white;
-	/* TÙY CHỈNH FONT CHỮ */
-    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
-    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
-    font-weight: bold;
-}
-
-#downloadBtn:hover{
-	
-	border: 2px solid;
-	border-color: #1ED761;
-	border-radius:20px;
-	background-color: #1ED761;
-	color : black;
-	
-}
-
-#downloadBtn:disabled{
-	
-	border: 2px solid;
-	border-color: rgb(136, 136, 136);
-	border-radius:20px;
-	background-color:rgb(67, 67, 67);
-	color : white;
-	
-}</string>
-                  </property>
                   <property name="text">
                    <string>DOWNLOAD</string>
                   </property>
@@ -918,60 +645,6 @@ QMainWindow {
                     <width>150</width>
                     <height>40</height>
                    </size>
-                  </property>
-                  <property name="styleSheet">
-                   <string notr="true">#comboBoxDownloadQuality{
-	
-	border: 2px solid;
-	border-color: #1ED761;
-	border-radius:20px;
-	background-color: rgb(67, 67, 67);
-	color : white;
-	padding-left: 30px;
-	/* TÙY CHỈNH FONT CHỮ */
-    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
-    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
-    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
-}
-
-#comboBoxDownloadQuality:hover{
-	
-	border: 2px solid;
-	border-color: #1ED761;
-	border-radius:20px;
-	background-color:#1ED761;
-	color : black;
-	
-}
-
-#comboBoxDownloadQuality::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 25px;
-    border-top-right-radius: 10px; /* Bo góc cho phần nút bên phải */
-    border-bottom-right-radius: 10px;
-    
-}
-
-#comboBoxDownloadQuality::down-arrow {
-	image: url(&quot;E:/design/ytb_playlist_downloader/img/icon/down_arrow.png&quot;);
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    
-    width: 12px;
-    height: 12px;
-    margin-right: 10px;
-}
-
-#comboBoxDownloadQuality:disabled{
-	
-	border: 2px solid;
-	border-color: rgb(136, 136, 136);
-	border-radius:20px;
-	background-color:rgb(67, 67, 67);
-	color : transparent;
-	
-}</string>
                   </property>
                  </widget>
                 </item>
@@ -1019,12 +692,6 @@ QMainWindow {
         <width>550</width>
         <height>800</height>
        </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">#sideBarWidget{
-	
-	background-color: #2b2b2b
-}</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_4">
        <property name="bottomMargin">
@@ -1110,32 +777,6 @@ QMainWindow {
                  <height>40</height>
                 </size>
                </property>
-               <property name="styleSheet">
-                <string notr="true">#downloadAllBtn{
-	
-	border: 2px solid;
-	border-color: #1ED761;
-	border-radius:20px;
-	background-color: rgb(67, 67, 67);
-	color : white;
-	/* TÙY CHỈNH FONT CHỮ */
-    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
-    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
-    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
-}
-
-#downloadAllBtn:hover{
-	
-	border: 2px solid;
-	border-color: #1ED761;
-	border-radius:20px;
-	background-color: #1ED761;
-	color : black;
-	
-}
-
-</string>
-               </property>
                <property name="text">
                 <string>Download ALL</string>
                </property>
@@ -1154,50 +795,6 @@ QMainWindow {
                  <width>200</width>
                  <height>40</height>
                 </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">#comboBoxDownloadAllOpt{
-	
-	border: 2px solid;
-	border-color: #1ED761;
-	border-radius:20px;
-	background-color: rgb(67, 67, 67);
-	color : white;
-	padding-left: 80px;
-	/* TÙY CHỈNH FONT CHỮ */
-    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
-    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
-    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
-}
-
-#comboBoxDownloadAllOpt:hover{
-	
-	border: 2px solid;
-	border-color: #1ED761;
-	border-radius:20px;
-	background-color:#1ED761;
-	color : black;
-	
-}
-
-#comboBoxDownloadAllOpt::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 25px;
-    border-top-right-radius: 10px; /* Bo góc cho phần nút bên phải */
-    border-bottom-right-radius: 10px;
-    
-}
-
-#comboBoxDownloadAllOpt::down-arrow {
-	image: url(&quot;E:/design/ytb_playlist_downloader/img/icon/down_arrow.png&quot;);
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    
-    width: 12px;
-    height: 12px;
-    margin-right: 10px;
-}</string>
                </property>
                <item>
                 <property name="text">
@@ -1218,13 +815,6 @@ QMainWindow {
                  <width>30</width>
                  <height>30</height>
                 </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">#miniSideBarBtn{
-	border: 1px lipid transparent;
-	
-	background-color: transparent;
-}</string>
                </property>
                <property name="text">
                 <string/>
@@ -1254,60 +844,6 @@ QMainWindow {
                  <height>20</height>
                 </size>
                </property>
-               <property name="styleSheet">
-                <string notr="true">#btnClearAll{
-	
-	border: 2px solid;
-	border-color: #1ED761;
-	border-radius:10px;
-	background-color: rgb(67, 67, 67);
-	color : white;
-	padding-left: 10px;
-	/* TÙY CHỈNH FONT CHỮ */
-    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
-    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
-    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
-}
-
-#btnClearAll:hover{
-	
-	border: 2px solid;
-	border-color: #1ED761;
-	border-radius:10px;
-	background-color:#1ED761;
-	color : black;
-	
-}
-
-#btnClearAll::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 25px;
-    border-top-right-radius: 10px; /* Bo góc cho phần nút bên phải */
-    border-bottom-right-radius: 10px;
-    
-}
-
-#btnClearAll::down-arrow {
-	image: url(&quot;E:/design/ytb_playlist_downloader/img/icon/down_arrow.png&quot;);
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    
-    width: 12px;
-    height: 12px;
-    margin-right: 10px;
-}
-
-#btnClearAll:disabled{
-	
-	border: 2px solid;
-	border-color: rgb(136, 136, 136);
-	border-radius:20px;
-	background-color:rgb(67, 67, 67);
-	color : transparent;
-	
-}</string>
-               </property>
                <property name="text">
                 <string>Clear All</string>
                </property>
@@ -1320,60 +856,6 @@ QMainWindow {
                  <width>100</width>
                  <height>20</height>
                 </size>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">#btnChooseAll{
-	
-	border: 2px solid;
-	border-color: #1ED761;
-	border-radius:10px;
-	background-color: rgb(67, 67, 67);
-	color : white;
-	padding-left: 10px;
-	/* TÙY CHỈNH FONT CHỮ */
-    font-family: &quot;Segoe UI&quot;, Helvetica, Arial, sans-serif; /* Dùng font chữ không chân hiện đại */
-    font-size: 11pt;           /* Tăng kích thước chữ cho cân đối (có thể chỉnh lại số này) */
-    font-weight: bold;         /* Độ đậm của chữ (Đây là chìa khóa để giống ảnh mẫu) */
-}
-
-#btnChooseAll:hover{
-	
-	border: 2px solid;
-	border-color: #1ED761;
-	border-radius:10px;
-	background-color:#1ED761;
-	color : black;
-	
-}
-
-#btnChooseAll::drop-down {
-    subcontrol-origin: padding;
-    subcontrol-position: top right;
-    width: 25px;
-    border-top-right-radius: 10px; /* Bo góc cho phần nút bên phải */
-    border-bottom-right-radius: 10px;
-    
-}
-
-#btnChooseAll::down-arrow {
-	image: url(&quot;E:/design/ytb_playlist_downloader/img/icon/down_arrow.png&quot;);
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    
-    width: 12px;
-    height: 12px;
-    margin-right: 10px;
-}
-
-#btnChooseAll:disabled{
-	
-	border: 2px solid;
-	border-color: rgb(136, 136, 136);
-	border-radius:10px;
-	background-color:rgb(67, 67, 67);
-	color : transparent;
-	
-}</string>
                </property>
                <property name="text">
                 <string>Choose All</string>
@@ -1406,11 +888,6 @@ QMainWindow {
            <height>600</height>
           </size>
          </property>
-         <property name="styleSheet">
-          <string notr="true">#scrollArea{
-	border:1px lipid black;
-}</string>
-         </property>
          <property name="widgetResizable">
           <bool>true</bool>
          </property>
@@ -1440,17 +917,6 @@ QMainWindow {
             <width>500</width>
             <height>600</height>
            </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">#scrollAreaWidgetContents:vertical {
-    width: 0px;
-    background: transparent;
-}
-
-#scrollAreaWidgetContents:horizontal {
-    height: 0px;
-    background: transparent;
-}</string>
           </property>
          </widget>
         </widget>

@@ -25,9 +25,6 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <property name="styleSheet">
-   <string notr="true"/>
-  </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <property name="spacing">
     <number>6</number>
@@ -76,21 +73,6 @@
        <width>30</width>
        <height>30</height>
       </size>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">#deleteHistoryBtn { 
-                background: transparent; 
-                color: #888; 
-                font-size: 16px; 
-                font-weight: bold; 
-                border: none; 
-                border-radius: 12px; 
-}
-#deleteHistoryBtn:hover { 
-color: #ff4444; /* Đỏ lên khi hover */
- background: rgba(255, 68, 68, 0.2); 
-}
-</string>
      </property>
      <property name="text">
       <string>✕</string>

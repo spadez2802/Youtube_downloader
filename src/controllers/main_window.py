@@ -16,12 +16,17 @@ from controllers.ui_handler import UIHandler
 from controllers.search_handler import SearchHandler
 from controllers.download_handler import DownloadHandler
 from utils.helpers import get_asset_path, get_node_path, get_ffmpeg_path 
+from utils.theme_manager import ThemeManager
+from PySide6.QtWidgets import QApplication
 
 class MyDownloader(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        
+        self.theme_manager = ThemeManager()
+        self.theme_manager.apply(QApplication.instance())
         
         # --- 1. KHAI BÁO CÁC BIẾN QUAN TRỌNG (Đã được khôi phục) ---
         node_path = get_node_path()
@@ -71,6 +76,9 @@ class MyDownloader(QMainWindow):
         
         # Kết nối nút History trong menuAAA để toggle sidebar bên trái
         self.ui.actionHistory.triggered.connect(self.ui_handler.toggle_history_sidebar)
+        self.ui.labelHistory.hide()
+        self.ui.btnShowLeft.setText("✕")
+        self.ui.btnShowLeft.clicked.connect(self.ui_handler.toggle_history_sidebar)
         
         # Kết nối nút Delete All và Checkbox trong Sidebar lịch sử trái
         self.ui.pushButton.clicked.connect(self.search_handler.delete_selected_history_items)
@@ -151,8 +159,6 @@ class MyDownloader(QMainWindow):
 
     def handle_connection_change(self, is_online):
         if is_online:
-            # Chuyển nền QMainWindow sang màu xanh Spotify
-            self.setStyleSheet("QMainWindow { background-color: #1ED761; }")
             # Style text statusbar là màu đen và in đậm để nổi bật trên nền xanh
             self.ui.statusbar.setStyleSheet("QStatusBar { color: black; font-weight: bold; }")
             
@@ -162,8 +168,6 @@ class MyDownloader(QMainWindow):
             else:
                 self.is_first_network_check = False
         else:
-            # Chuyển nền QMainWindow sang màu xám như màu các khung widget (#2b2b2b)
-            self.setStyleSheet("QMainWindow { background-color: #2b2b2b; }")
             # Thiết lập màu text statusbar là màu trắng
             self.ui.statusbar.setStyleSheet("QStatusBar { color: white; }")
             self.ui.statusbar.clearMessage()

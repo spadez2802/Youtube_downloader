@@ -35,39 +35,7 @@ class DownloadDialog(QDialog):
         self.ui.labelThumbnail.setText("No Image")
 
         # Premium Dark theme styling matching the main app
-        self.setStyleSheet("""
-            QDialog {
-                background-color: #2b2b2b;
-                color: white;
-            }
-            QLabel {
-                color: white;
-                font-family: "Segoe UI", sans-serif;
-                font-size: 11pt;
-            }
-            QTextEdit {
-                background-color: black;
-                color: white;
-                border: 1px solid #1ED761;
-                border-radius: 10px;
-                padding: 8px;
-                font-family: "Segoe UI", sans-serif;
-                font-size: 11pt;
-            }
-            QProgressBar {
-                border: 2px solid #1ED761;
-                border-radius: 10px;
-                background-color: #434343;
-                color: white;
-                text-align: center;
-                font-weight: bold;
-                height: 25px;
-            }
-            QProgressBar::chunk {
-                background-color: #1ED761;
-                border-radius: 8px;
-            }
-        """)
+
 
         # Set initial content
         if video_title:
