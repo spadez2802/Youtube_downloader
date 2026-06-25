@@ -37,7 +37,7 @@ SettingsDialog (QDialog)
 │   ├── [Nhóm 2] Tải xuống mặc định
 │   └── [Nhóm 3] Lịch sử
 └── Tab 2: Nâng cao
-    └── [Nhóm 4] Mạng & Proxy
+    └── [Nhóm 4] Tải xuống nâng cao
 ```
 
 ---
@@ -48,7 +48,6 @@ SettingsDialog (QDialog)
 
 | Widget | Mô tả |
 |---|---|
-| `QLineEdit` + `QPushButton` Browse | Đường dẫn thư mục lưu mặc định |
 | `QCheckBox` | Tự động tạo subfolder tên playlist |
 | `QCheckBox` | Mở thư mục sau khi tải xong |
 
@@ -65,17 +64,15 @@ SettingsDialog (QDialog)
 
 | Widget | Mô tả |
 |---|---|
-| `QCheckBox` | Bật/tắt lưu lịch sử tải |
-| `QSpinBox` | Số mục lịch sử tối đa (50 / 100 / không giới hạn) |
 | `QPushButton` Xóa lịch sử | Xóa toàn bộ history.json |
 
-### Nhóm 4 — Mạng & Proxy (Tab Nâng cao)
+### Nhóm 4 — Tải xuống nâng cao (Tab Nâng cao)
 
 | Widget | Mô tả |
 |---|---|
-| `QLineEdit` | Địa chỉ proxy (để trống = không dùng) |
-| `QLineEdit` | Rate limit (VD: `5M` = 5 MB/s) |
-| `QSpinBox` | Số lần retry khi lỗi (1–5) |
+| `QCheckBox` | Sử dụng đường dẫn mặc định (Không hỏi lại đường dẫn khi tải xuống). Khi tick vào ô này thì các ô bên dưới mới được enable. |
+| `QLineEdit` (read-only) + `QPushButton` Change | Hiển thị và chọn đường dẫn mặc định. Mặc định bị disable, chỉ enable khi tick ô trên. Nếu tick ô trên mà đường dẫn trống, hiện thông báo lỗi. |
+| `QCheckBox` | Tải xuống với tên gốc. Mặc định bị disable, chỉ enable khi tick ô trên. (Nếu tick: tải tên gốc; nếu không tick: hiện 1 ô nhập tên file khi tải) |
 
 ---
 
@@ -106,15 +103,12 @@ Class `SettingsManager`:
   "download_path": "",
   "create_subfolder_for_playlist": true,
   "open_folder_after_download": false,
+  "use_default_path": false,
+  "use_original_name": true,
   "default_format": "MP4",
   "default_quality": "1080p",
   "default_bitrate": "192kbps",
   "max_concurrent_downloads": 2,
-  "save_history": true,
-  "max_history_entries": 100,
-  "proxy": "",
-  "rate_limit": "",
-  "retry_count": 3,
   "accent_color": "#1ED761"
 }
 ```
@@ -127,8 +121,11 @@ Class `SettingsManager`:
 
 `SettingsDialogController`:
 - Nạp giá trị từ `SettingsManager` khi mở dialog
-- Nút Browse → `QFileDialog.getExistingDirectory()`
+- Nút Change (chọn thư mục) → `QFileDialog.getExistingDirectory()`
 - Thay đổi `default_format` → ẩn/hiện quality combobox
+- Logic `use_default_path`:
+  - Bắt sự kiện `toggled` để bật/tắt (enable/disable) ô chọn đường dẫn và ô "Tải xuống với tên gốc" bên dưới.
+  - Cảnh báo khi tick `use_default_path` mà đường dẫn trống.
 - Nút Save → validate → `settings_manager.save()` → apply accent → `accept()`
 - Nút Cancel → `reject()`
 - Nút Xóa lịch sử → `search_handler.clear_all_history()`
@@ -141,12 +138,14 @@ Class `SettingsManager`:
 
 ### [MODIFY] `src/controllers/download_handler.py`
 
-- Đọc `download_path`, `proxy`, `rate_limit`, `retry_count` từ settings khi bắt đầu tải
+- Đọc `download_path`, `use_default_path` và `use_original_name` từ settings khi bắt đầu tải.
+- Nếu `use_default_path` = True: Không hỏi thư mục. Nếu `use_original_name` = False, hiện 1 ô nhập để hỏi tên file/playlist trước khi tải.
+- Nếu `use_default_path` = False: Hỏi người dùng chọn đường dẫn tải xuống.
 
 ### [MODIFY] `src/models/history_manager.py`
 
 - Thêm method `clear_all()` nếu chưa có
-- Đọc `max_history_entries` từ settings khi append
+- Lưu lịch sử không giới hạn (bỏ giới hạn max_history_entries)
 
 ---
 
@@ -168,4 +167,3 @@ Class `SettingsManager`:
 - [ ] Thay đổi định dạng mặc định → Mở lại app → Vẫn giữ cài đặt
 - [ ] Xóa lịch sử → Sidebar lịch sử trống
 - [ ] Đổi accent color → Tất cả nút, combobox, border đổi màu
-- [ ] Nhập proxy sai → App vẫn chạy bình thường (không crash)

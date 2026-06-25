@@ -1,163 +1,18 @@
 import json
+import datetime
 from PySide6.QtCore import Qt, QSize
-from PySide6.QtWidgets import QListWidgetItem, QWidget, QMessageBox
+from PySide6.QtWidgets import QListWidgetItem, QWidget, QMessageBox, QLabel, QSizePolicy
 from PySide6.QtGui import QPixmap, QGuiApplication
 from models.thread_fetch_info import FetchInfoThread
-from views.custom_widgets import VideoItemWidget
+
+# --- IMPORT WIDGETS TỪ VIEWS (ĐÚNG THEO MVC) ---
+# HistoryCard và HistoryItemWidget là View components → thuộc views/custom_widgets.py
+from views.custom_widgets import VideoItemWidget, HistoryCard, HistoryItemWidget
 
 # IMPORT GIAO DIỆN LỊCH SỬ TỪ CẤU HÌNH UI_CONFIG.PY ĐỂ KHÔNG BỊ FIX CỨNG PHIÊN BẢN
 from views.ui_config import Ui_HistorySidebar, Ui_HistoryDropdown
 
-# ==========================================================
-# WIDGET CARD LỊCH SỬ SIDEBAR TRÁI (DÙNG UI_HISTORY_VER1_0)
-# ==========================================================
-class HistoryCard(QWidget):
-    def __init__(self, title, url, time_str, parent_handler, item_type='video'):
-        super().__init__()
-        self.ui = Ui_HistorySidebar()
-        self.ui.setupUi(self)
-        
-        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
-        self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
-        
-        self.url = url
-        self.parent_handler = parent_handler
-        
-        # Dùng fontMetrics để tính toán chiều dài pixel chuẩn xác cho 2 dòng (~200px để tránh lỗi chữ hoa làm trôi dòng)
-        fm = self.ui.labelName.fontMetrics()
-        display_title = fm.elidedText(title, Qt.TextElideMode.ElideRight, 210)
-        
-        # Điền tiêu đề
-        self.ui.labelName.setText(display_title)
-        
-        # --- Chỉ hiển thị giờ (HH:MM) ở labelDate ---
-        time_only = ""
-        if time_str:
-            # time_str có dạng "2026-06-16 16:35" hoặc "Đã lưu"
-            parts = time_str.strip().split(' ')
-            if len(parts) >= 2:
-                time_only = parts[1]  # Lấy phần giờ HH:MM
-            else:
-                time_only = time_str  # Fallback nếu không có ngày
-        else:
-            time_only = "Vừa xong"
-        self.ui.labelDate.setText(time_only)
-        self.ui.labelDate.setStyleSheet("color: #888888; font-size: 11px;")
-        
-        # --- Badge [Video] hoặc [Playlist] bên phải ---
-        if item_type == 'playlist':
-            badge_text = "[Playlist]"
-            badge_color = "#1ED761"
-        else:
-            badge_text = "[Video]"
-            badge_color = "#4A90D9"
-        self.ui.labelType.setText(badge_text)
-        self.ui.labelType.setStyleSheet(
-            f"color: {badge_color}; font-size: 10px; font-weight: bold; "
-            f"background: transparent; padding: 1px 3px; "
-            f"border: 1px solid {badge_color}; border-radius: 3px;"
-        )
-        
-        # Cho phép labelName tự động xuống dòng
-        self.ui.labelName.setWordWrap(True)
-        
-        # Giới hạn chiều cao cho labelName cứng ở mức 34px (chính xác 2 dòng)
-        self.ui.labelName.setMaximumHeight(34)
-        
-        # Đảm bảo labelName chiếm hết không gian trống để nút Option không bị đẩy
-        from PySide6.QtWidgets import QSizePolicy
-        policy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
-        self.ui.labelName.setSizePolicy(policy)
-        
-        self.ui.labelName.setMinimumHeight(0)
-        self.ui.widget.setMinimumHeight(0)
-        self.setMinimumHeight(0)
 
-        # Cập nhật style
-        self.setStyleSheet("""
-            HistoryCard:hover {
-                background-color: #3e3e3e;
-                border-radius: 4px;
-            }
-        """)
-
-        # Gán bộ lắng nghe chuột
-        self.ui.labelName.setCursor(Qt.CursorShape.PointingHandCursor)
-        self.ui.labelDate.setCursor(Qt.CursorShape.PointingHandCursor)
-        self.ui.cbbOpt.setCursor(Qt.CursorShape.PointingHandCursor)
-        
-        # Thiết lập QMenu cho QToolButton
-        from PySide6.QtWidgets import QMenu
-        from PySide6.QtGui import QAction
-        
-        self.opt_menu = QMenu(self)
-
-        
-        # Thêm 2 option hiện có
-        self.act_copy = QAction("Copy link", self)
-        self.act_delete = QAction("Delete from history", self)
-        
-        self.opt_menu.addAction(self.act_copy)
-        self.opt_menu.addAction(self.act_delete)
-        
-        self.ui.cbbOpt.setMenu(self.opt_menu)
-        
-        self.act_copy.triggered.connect(self.copy_url)
-        self.act_delete.triggered.connect(self.delete_item)
-        
-        # Click vào text để tự động tìm kiếm
-        self.ui.labelName.mousePressEvent = self.on_text_clicked
-        self.ui.labelDate.mousePressEvent = self.on_text_clicked
-
-
-
-    def on_text_clicked(self, event):
-        self.parent_handler.load_history_url(self.url)
-
-    def delete_item(self):
-        self.parent_handler.delete_history_item(self.url)
-
-    def copy_url(self):
-        clipboard = QGuiApplication.clipboard()
-        clipboard.setText(self.url)
-        self.parent_handler.main.ui.statusbar.showMessage("Đã sao chép liên kết vào Clipboard!", 2000)
-
-    def paintEvent(self, event):
-        from PySide6.QtWidgets import QStyleOption, QStyle
-        from PySide6.QtGui import QPainter
-        opt = QStyleOption()
-        opt.initFrom(self)
-        p = QPainter(self)
-        self.style().drawPrimitive(QStyle.PrimitiveElement.PE_Widget, opt, p, self)
-
-# ==========================================================
-# WIDGET LỊCH SỬ DÙNG FILE UI CỦA BẠN (CŨ CHO AUTOCLETE DROPDOWN)
-# ==========================================================
-class HistoryItemWidget(QWidget):
-    def __init__(self, title, url, parent_handler):
-        super().__init__()
-        self.ui = Ui_HistoryDropdown()
-        self.ui.setupUi(self)
-        
-        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
-        self.setStyleSheet("background: transparent;")
-
-        self.url = url
-        self.parent_handler = parent_handler
-        
-        self.ui.label.setText(title)
-        self.ui.label.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents) 
-        
-        self.ui.deleteHistoryBtn.setCursor(Qt.CursorShape.PointingHandCursor)
-        self.ui.deleteHistoryBtn.clicked.connect(self.delete_item)
-
-    def delete_item(self):
-        self.parent_handler.delete_history_item(self.url)
-
-
-# ==========================================================
-# BỘ XỬ LÝ TÌM KIẾM CHÍNH
-# ==========================================================
 class SearchHandler:
     def __init__(self, main_window):
         self.main = main_window
@@ -201,17 +56,9 @@ class SearchHandler:
         self.ui.listWidget.setMaximumHeight(h)
 
     def delete_history_item(self, url):
-        # 1. Xóa khỏi RAM tạm thời
-        self.main.history_data = [item for item in self.main.history_data if item['url'] != url]
-        
-        # 2. Xóa vĩnh viễn khỏi file history.json
-        try:
-            with open(self.main.history_manager.get_history_path(), 'w', encoding='utf-8') as f:
-                json.dump(self.main.history_data, f, ensure_ascii=False, indent=4)
-        except Exception as e:
-            print(f"Lỗi xóa lịch sử: {e}")
-            
-        # 3. F5 cập nhật lại giao diện danh sách ngay lập tức
+        # Ủy quyền xóa cho HistoryManager (Model) thay vì tự thào tác file
+        self.main.history_data = self.main.history_manager.delete_items([url])
+        # Cập nhật giao diện
         self.on_text_changed(self.ui.enterPlace.text())
         self.refresh_left_history_sidebar()
 
@@ -304,9 +151,6 @@ class SearchHandler:
         self.handle_find()
 
     def refresh_left_history_sidebar(self):
-        import datetime
-        from PySide6.QtWidgets import QLabel, QSizePolicy
-        
         # 1. Dọn dẹp các card cũ trong container
         if hasattr(self.main, 'history_layout') and self.main.history_layout:
             while self.main.history_layout.count():
@@ -446,22 +290,12 @@ class SearchHandler:
         if msg_box.exec() != QMessageBox.StandardButton.Yes:
             return
 
-        self.main.history_data = [item for item in self.main.history_data if item['url'] not in urls_to_delete]
-        
-        try:
-            with open(self.main.history_manager.get_history_path(), 'w', encoding='utf-8') as f:
-                json.dump(self.main.history_data, f, ensure_ascii=False, indent=4)
-        except Exception as e:
-            print(f"Lỗi xóa lịch sử: {e}")
-            
+        # Ủy quyền xóa cho HistoryManager (Model)
+        self.main.history_data = self.main.history_manager.delete_items(urls_to_delete)
         self.on_text_changed(self.ui.enterPlace.text())
         self.refresh_left_history_sidebar()
 
     def clear_all_history(self):
-        self.main.history_data = []
-        try:
-            with open(self.main.history_manager.get_history_path(), 'w', encoding='utf-8') as f:
-                json.dump([], f, ensure_ascii=False, indent=4)
-        except Exception as e:
-            print(f"Lỗi xóa toàn bộ lịch sử: {e}")
+        # Ủy quyền xóa cho HistoryManager (Model)
+        self.main.history_data = self.main.history_manager.clear_all()
         self.refresh_left_history_sidebar()

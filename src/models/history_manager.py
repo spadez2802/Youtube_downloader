@@ -47,8 +47,7 @@ class HistoryManager:
         self.history_data = [item for item in self.history_data if item['url'] != url]
         self.history_data.insert(0, {'title': title, 'url': url, 'type': item_type, 'time': timestamp})
         
-        # Giới hạn 100 bài gần nhất
-        self.history_data = self.history_data[:100]
+        # Không giới hạn số lượng mục lịch sử (unlimited)
         
         try:
             with open(self.get_history_path(), 'w', encoding='utf-8') as f:
@@ -56,4 +55,24 @@ class HistoryManager:
         except Exception as e:
             print(f"Lỗi lưu lịch sử: {e}")
             
+        return self.history_data
+
+    def clear_all(self):
+        """Xóa toàn bộ lịch sử. Controller chỉ cần gọi method này, không thông qua file trực tiếp."""
+        self.history_data = []
+        try:
+            with open(self.get_history_path(), 'w', encoding='utf-8') as f:
+                json.dump([], f, ensure_ascii=False, indent=4)
+        except Exception as e:
+            print(f"Lỗi xóa toàn bộ lịch sử: {e}")
+        return self.history_data
+
+    def delete_items(self, urls_to_delete: list):
+        """Xóa các mục lịch sử theo danh sách URL. Ghi file tự động."""
+        self.history_data = [item for item in self.history_data if item['url'] not in urls_to_delete]
+        try:
+            with open(self.get_history_path(), 'w', encoding='utf-8') as f:
+                json.dump(self.history_data, f, ensure_ascii=False, indent=4)
+        except Exception as e:
+            print(f"Lỗi xóa lịch sử: {e}")
         return self.history_data

@@ -1,0 +1,12 @@
+{
+    "download_path": "",
+    "create_subfolder_for_playlist": true,
+    "open_folder_after_download": false,
+    "use_default_path": false,
+    "use_original_name": true,
+    "default_format": "MP4",
+    "default_quality": "1080p",
+    "default_bitrate": "192kbps",
+    "max_concurrent_downloads": 2,
+    "accent_color": "#1ed761"
+}

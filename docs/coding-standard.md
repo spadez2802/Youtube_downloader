@@ -52,4 +52,17 @@ Khi cần chỉnh sửa, cập nhật chức năng hoặc UI:
 4. Tuân thủ việc dùng `ui_config.py` khi khai báo một component mới.
 
 ---
+
+## 4. Nguyên Tắc Thiết Kế Cốt Lõi (MVC, Low Coupling, High Cohesion)
+Toàn bộ dự án phải luôn được duy trì và phát triển tuân theo mô hình **MVC** với mục tiêu đạt được **Low Coupling** (Độ phụ thuộc thấp) và **High Cohesion** (Tính gắn kết cao):
+- **MVC (Model-View-Controller)**: Tách bạch rõ ràng giữa Giao diện (View), Xử lý luồng/điều phối (Controller) và Logic nghiệp vụ/Dữ liệu (Model).
+- **Low Coupling (Khớp nối lỏng lẻo)**: 
+  - Các module không được gọi trực tiếp lẫn nhau nếu không cần thiết.
+  - Sử dụng cơ chế **Signals & Slots** của Qt để giao tiếp giữa Model và Controller, hoặc giữa View và Controller.
+  - Model không bao giờ được import hay tham chiếu đến View hay Controller.
+- **High Cohesion (Tính gắn kết cao)**:
+  - Mỗi class/module chỉ thực hiện một nhiệm vụ cụ thể duy nhất (Single Responsibility Principle). 
+  - Ví dụ: `HistoryManager` chỉ quản lý việc đọc/ghi lịch sử; `DownloadHandler` chỉ điều phối quá trình tải, không can thiệp vào cập nhật UI.
+
+---
 *(Được tổng hợp từ tài liệu UI_VERSIONING_GUIDE.md)*

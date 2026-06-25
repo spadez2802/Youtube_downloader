@@ -1,6 +1,6 @@
-from PySide6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QSize
-from PySide6.QtWidgets import QFrame, QSizePolicy
-from PySide6.QtGui import QIcon # --- CẦN IMPORT THÊM QICON ---
+from PySide6.QtCore import Qt, QPropertyAnimation, QEasingCurve, QSize, QRect
+from PySide6.QtWidgets import QFrame, QSizePolicy, QVBoxLayout, QWidget
+from PySide6.QtGui import QIcon, QGuiApplication
 from utils.helpers import get_asset_path
 
 class UIHandler:
@@ -67,7 +67,6 @@ class UIHandler:
         """)
         
         # Sửa lỗi căn lề tuyệt đối (absolute positioning) của Qt Designer trên sidebar trái
-        from PySide6.QtWidgets import QVBoxLayout
         if not self.ui.scrollAreaWidgetContents_2.layout():
             layout_left = QVBoxLayout(self.ui.scrollAreaWidgetContents_2)
             layout_left.setContentsMargins(10, 10, 10, 10)
@@ -81,7 +80,6 @@ class UIHandler:
         self.ui.plainTextEdit.setVisible(False)
         
         # Tạo widget container và layout để chứa các card lịch sử động
-        from PySide6.QtWidgets import QWidget
         self.main.history_container = QWidget(self.ui.widget_12)
         self.main.history_layout = QVBoxLayout(self.main.history_container)
         self.main.history_layout.setContentsMargins(0, 0, 0, 0)
@@ -134,7 +132,6 @@ class UIHandler:
         self.main.resize(730, 650)
         
         # Căn giữa màn hình và dịch sang trái một chút (100px) để không bị che khi mở full các pane
-        from PySide6.QtGui import QGuiApplication
         screen = QGuiApplication.primaryScreen()
         if screen:
             screen_geo = screen.availableGeometry()
@@ -190,7 +187,6 @@ class UIHandler:
             anim.start()
 
     def toggle_history_sidebar(self):
-        from PySide6.QtCore import QSize
         is_visible = self.ui.historyList.isVisible() and self.ui.historyList.width() > 0
         
         if not is_visible:
@@ -198,7 +194,6 @@ class UIHandler:
             self.ui.historyList.setVisible(True)
             
             current_geo = self.main.geometry()
-            from PySide6.QtCore import QRect
             self.anim_win = QPropertyAnimation(self.main, b"geometry")
             self.anim_win.setDuration(250)
             self.anim_win.setEasingCurve(QEasingCurve.OutQuart)
@@ -219,7 +214,6 @@ class UIHandler:
         else:
             self.ui.actionHistory.setChecked(False)
             current_geo = self.main.geometry()
-            from PySide6.QtCore import QRect
             self.anim_win = QPropertyAnimation(self.main, b"geometry")
             self.anim_win.setDuration(250)
             self.anim_win.setEasingCurve(QEasingCurve.InQuart)

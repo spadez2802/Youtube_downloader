@@ -19,6 +19,9 @@ HISTORY_DROPDOWN_VERSION = "2_0"
 # 5. Download Dialog UI Version (Ví dụ: "ver1_0" sẽ tự nạp file views.ui_download_dialog_ver1_0)
 DOWNLOAD_DIALOG_VERSION = "ver2_0"
 
+# 6. Settings Dialog UI Version (Ví dụ: "ver1_0" sẽ tự nạp file views.ui_settings_dialog_ver1_0)
+SETTINGS_DIALOG_VERSION = "ver1_0"
+
 
 # --- AUTOMATIC DYNAMIC IMPORTS ---
 # Phần này tự động tìm và nạp Class giao diện tương ứng theo chuỗi phiên bản cấu hình ở trên.
@@ -46,6 +49,10 @@ try:
     # 5. Tự động nạp Download Dialog UI
     dialog_module = importlib.import_module(f"views.ui_download_dialog_{DOWNLOAD_DIALOG_VERSION}")
     Ui_Dialog = dialog_module.Ui_Dialog
+
+    # 6. Tự động nạp Settings Dialog UI
+    settings_module = importlib.import_module(f"views.ui_settings_dialog_{SETTINGS_DIALOG_VERSION}")
+    Ui_SettingsDialog = settings_module.Ui_SettingsDialog
 
 except ImportError as e:
     raise ImportError(

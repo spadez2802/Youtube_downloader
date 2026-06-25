@@ -1,6 +1,6 @@
 import os
 import re
-from PySide6.QtWidgets import QMainWindow, QVBoxLayout, QSizePolicy
+from PySide6.QtWidgets import QMainWindow, QVBoxLayout, QSizePolicy, QApplication
 from PySide6.QtCore import Qt
 
 # --- IMPORT VIEW ---
@@ -10,23 +10,27 @@ from views.custom_widgets import VideoItemWidget
 # --- IMPORT MODELS ---
 from models.history_manager import HistoryManager
 from models.thread_network_checker import NetworkChecker
+from models.settings_manager import SettingsManager
 
 # --- IMPORT HANDLERS ---
 from controllers.ui_handler import UIHandler
 from controllers.search_handler import SearchHandler
 from controllers.download_handler import DownloadHandler
-from utils.helpers import get_asset_path, get_node_path, get_ffmpeg_path 
+from utils.helpers import get_asset_path, get_node_path, get_ffmpeg_path
 from utils.theme_manager import ThemeManager
-from PySide6.QtWidgets import QApplication
 
 class MyDownloader(QMainWindow):
     def __init__(self):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        
+
+        # --- 0. KHỞI TẠO SETTINGS MANAGER (Model) ---
+        self.settings_manager = SettingsManager()
+
         self.theme_manager = ThemeManager()
-        self.theme_manager.apply(QApplication.instance())
+        accent = self.settings_manager.get("accent_color", "#1ED761")
+        self.theme_manager.apply(QApplication.instance(), accent)
         
         # --- 1. KHAI BÁO CÁC BIẾN QUAN TRỌNG (Đã được khôi phục) ---
         node_path = get_node_path()
@@ -92,6 +96,10 @@ class MyDownloader(QMainWindow):
         self.ui.listWidget.itemClicked.connect(self.search_handler.on_history_item_clicked)
         self.ui.btnClearAll.clicked.connect(self.clear_all_ticks)
         self.ui.btnChooseAll.clicked.connect(self.choose_all_ticks)
+
+        # Kết nối menu Settings
+        if hasattr(self.ui, 'actionSetting'):
+            self.ui.actionSetting.triggered.connect(self.open_settings)
 
         # Mở lịch sử khi click vào ô trống
         self.original_mouse_press = self.ui.enterPlace.mousePressEvent
@@ -160,7 +168,9 @@ class MyDownloader(QMainWindow):
     def handle_connection_change(self, is_online):
         if is_online:
             # Style text statusbar là màu đen và in đậm để nổi bật trên nền xanh
-            self.ui.statusbar.setStyleSheet("QStatusBar { color: black; font-weight: bold; }")
+            self.ui.statusbar.setProperty("network_status", "offline")
+            self.ui.statusbar.style().unpolish(self.ui.statusbar)
+            self.ui.statusbar.style().polish(self.ui.statusbar)
             
             # Hiển thị log thông báo màu đen bằng tiếng anh trong 3 giây nếu không phải khởi động lần đầu
             if not self.is_first_network_check:
@@ -169,9 +179,21 @@ class MyDownloader(QMainWindow):
                 self.is_first_network_check = False
         else:
             # Thiết lập màu text statusbar là màu trắng
-            self.ui.statusbar.setStyleSheet("QStatusBar { color: white; }")
+            self.ui.statusbar.setProperty("network_status", "online")
+            self.ui.statusbar.style().unpolish(self.ui.statusbar)
+            self.ui.statusbar.style().polish(self.ui.statusbar)
             self.ui.statusbar.clearMessage()
             self.is_first_network_check = False
+
+    def open_settings(self):
+        """Mở dialog Cài Đặt. Import lazy để tránh circular import."""
+        from controllers.settings_dialog_controller import SettingsDialog
+        dialog = SettingsDialog(
+            parent=self,
+            settings_manager=self.settings_manager,
+            search_handler=self.search_handler
+        )
+        dialog.exec()
 
     def closeEvent(self, event):
         if hasattr(self, 'network_checker') and self.network_checker.isRunning():

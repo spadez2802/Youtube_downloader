@@ -58,10 +58,12 @@ src/
 4. yt-dlp thực thi tải xuống, liên tục emit progress signal (%, tốc độ, tên file).
 5. Khi hoàn tất, ghi vào lịch sử thông qua `HistoryManager`.
 
-### 2.4 Luồng tương tác MVC đầy đủ
-- **View**: Chỉ hiển thị giao diện và phát các Signals (nhấn nút, nhập URL).
-- **Controller**: Nhận Signals, gọi Model để xử lý nghiệp vụ, gọi View để cập nhật hiển thị.
-- **Model**: Xử lý logic nặng trên Threads (kéo thông tin, tải file, đọc/ghi lịch sử) và trả về dữ liệu cho Controller.
+### 2.4 Luồng tương tác MVC đầy đủ (Đảm bảo Low Coupling & High Cohesion)
+- **View**: Chỉ hiển thị giao diện và phát các Signals (nhấn nút, nhập URL). **Tuyệt đối không chứa logic nghiệp vụ (High Cohesion) và không giao tiếp trực tiếp với Model (Low Coupling).**
+- **Controller**: Đóng vai trò cầu nối. Nhận Signals từ View, gọi Model để xử lý nghiệp vụ, và cập nhật kết quả lên View. **Controller không thực hiện tính toán nặng hay logic data.**
+- **Model**: Xử lý logic nặng trên Threads (kéo thông tin, tải file, đọc/ghi lịch sử) và phát Signals trả về dữ liệu. **Model hoàn toàn độc lập, không biết về sự tồn tại của Controller hay View (Low Coupling).**
+
+> **Nguyên tắc cốt lõi:** Ứng dụng luôn phải tuân thủ nghiêm ngặt mô hình MVC để đạt được **Low Coupling** (Các thành phần ít phụ thuộc lẫn nhau, giao tiếp chủ yếu qua Signals/Slots) và **High Cohesion** (Mỗi module/class chỉ tập trung hoàn thành tốt một nhiệm vụ duy nhất).
 
 ---
 *(Được tổng hợp từ tài liệu workflow.md)*

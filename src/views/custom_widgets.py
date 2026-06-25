@@ -1,11 +1,12 @@
 import re
-from PySide6.QtWidgets import QWidget, QFileDialog, QMessageBox
+from PySide6.QtWidgets import (
+    QWidget, QFileDialog, QMessageBox, QSizePolicy, QMenu, QStyleOption, QStyle
+)
 from PySide6.QtCore import Qt
-from PySide6.QtGui import QPixmap
+from PySide6.QtGui import QPixmap, QGuiApplication, QPainter, QAction
 
 # --- IMPORT VIEW (GIAO DIỆN) ---
-# Đảm bảo bạn đã di chuyển file ui_video_ver... vào trong thư mục views
-from views.ui_config import Ui_VideoMini 
+from views.ui_config import Ui_VideoMini, Ui_HistorySidebar, Ui_HistoryDropdown
 
 # --- IMPORT MODELS (LUỒNG XỬ LÝ) ---
 from models.thread_thumbnail import ThumbnailThread
@@ -134,3 +135,128 @@ class VideoItemWidget(QWidget):
         finally:
             self.ui.downloadVBtn.setEnabled(True)
 
+
+# ==========================================================
+# WIDGET CARD LỊCH SỬ — SIDEBAR TRÁI
+# (Di chuyển từ search_handler.py để tuân thủ MVC / High Cohesion)
+# ==========================================================
+class HistoryCard(QWidget):
+    def __init__(self, title, url, time_str, parent_handler, item_type='video'):
+        super().__init__()
+        self.ui = Ui_HistorySidebar()
+        self.ui.setupUi(self)
+
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
+        self.setAttribute(Qt.WidgetAttribute.WA_StyledBackground, True)
+
+        self.url = url
+        self.parent_handler = parent_handler
+
+        # Dùng fontMetrics để tính toán chiều dài pixel chuẩn xác (~200px để tránh lỗi chữ hoa)
+        fm = self.ui.labelName.fontMetrics()
+        display_title = fm.elidedText(title, Qt.TextElideMode.ElideRight, 210)
+        self.ui.labelName.setText(display_title)
+
+        # --- Chỉ hiển thị giờ (HH:MM) ở labelDate ---
+        time_only = ""
+        if time_str:
+            parts = time_str.strip().split(' ')
+            if len(parts) >= 2:
+                time_only = parts[1]
+            else:
+                time_only = time_str
+        else:
+            time_only = "Vừa xong"
+        self.ui.labelDate.setText(time_only)
+        self.ui.labelDate.setStyleSheet("color: #888888; font-size: 11px;")
+
+        # --- Badge [Video] hoặc [Playlist] bên phải ---
+        if item_type == 'playlist':
+            badge_text = "[Playlist]"
+            badge_color = "#1ED761"
+        else:
+            badge_text = "[Video]"
+            badge_color = "#4A90D9"
+        self.ui.labelType.setText(badge_text)
+        self.ui.labelType.setStyleSheet(
+            f"color: {badge_color}; font-size: 10px; font-weight: bold; "
+            f"background: transparent; padding: 1px 3px; "
+            f"border: 1px solid {badge_color}; border-radius: 3px;"
+        )
+
+        self.ui.labelName.setWordWrap(True)
+        self.ui.labelName.setMaximumHeight(34)
+
+        policy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)
+        self.ui.labelName.setSizePolicy(policy)
+        self.ui.labelName.setMinimumHeight(0)
+        self.ui.widget.setMinimumHeight(0)
+        self.setMinimumHeight(0)
+
+        self.setStyleSheet("""
+            HistoryCard:hover {
+                background-color: #3e3e3e;
+                border-radius: 4px;
+            }
+        """)
+
+        self.ui.labelName.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.ui.labelDate.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.ui.cbbOpt.setCursor(Qt.CursorShape.PointingHandCursor)
+
+        # Thiết lập QMenu cho QToolButton
+        self.opt_menu = QMenu(self)
+        self.act_copy = QAction("Copy link", self)
+        self.act_delete = QAction("Delete from history", self)
+        self.opt_menu.addAction(self.act_copy)
+        self.opt_menu.addAction(self.act_delete)
+        self.ui.cbbOpt.setMenu(self.opt_menu)
+
+        self.act_copy.triggered.connect(self.copy_url)
+        self.act_delete.triggered.connect(self.delete_item)
+
+        self.ui.labelName.mousePressEvent = self.on_text_clicked
+        self.ui.labelDate.mousePressEvent = self.on_text_clicked
+
+    def on_text_clicked(self, event):
+        self.parent_handler.load_history_url(self.url)
+
+    def delete_item(self):
+        self.parent_handler.delete_history_item(self.url)
+
+    def copy_url(self):
+        clipboard = QGuiApplication.clipboard()
+        clipboard.setText(self.url)
+        self.parent_handler.main.ui.statusbar.showMessage("Đã sao chép liên kết vào Clipboard!", 2000)
+
+    def paintEvent(self, event):
+        opt = QStyleOption()
+        opt.initFrom(self)
+        p = QPainter(self)
+        self.style().drawPrimitive(QStyle.PrimitiveElement.PE_Widget, opt, p, self)
+
+
+# ==========================================================
+# WIDGET LỊCH SỬ — AUTOCOMPLETE DROPDOWN
+# (Di chuyển từ search_handler.py để tuân thủ MVC / High Cohesion)
+# ==========================================================
+class HistoryItemWidget(QWidget):
+    def __init__(self, title, url, parent_handler):
+        super().__init__()
+        self.ui = Ui_HistoryDropdown()
+        self.ui.setupUi(self)
+
+        self.setAttribute(Qt.WidgetAttribute.WA_TranslucentBackground)
+        self.setStyleSheet("background: transparent;")
+
+        self.url = url
+        self.parent_handler = parent_handler
+
+        self.ui.label.setText(title)
+        self.ui.label.setAttribute(Qt.WidgetAttribute.WA_TransparentForMouseEvents)
+
+        self.ui.deleteHistoryBtn.setCursor(Qt.CursorShape.PointingHandCursor)
+        self.ui.deleteHistoryBtn.clicked.connect(self.delete_item)
+
+    def delete_item(self):
+        self.parent_handler.delete_history_item(self.url)
